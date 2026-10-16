@@ -1,0 +1,697 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Devis · Ilan Quoirez</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@1,6..72,400&display=swap">
+<style>
+/* Saisie à gauche, panneau prix collant à droite ; une colonne (prix en haut) sur téléphone. Identité du site : sombre, crème, gris chaud. */
+:root{
+  --bg:#0E0E0D; --panel:#151513; --ink:#ECE7DE; --mute:#8C877E; --rule:#2A2926;
+  --accent:#D9C9A3; --warn:#E0A458; --ok:#9DB89A;
+  --sans:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --serif:"Newsreader","Palatino Linotype",Palatino,Georgia,serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:calc(22px + env(safe-area-inset-top,0px)) calc(48px + env(safe-area-inset-bottom,0px))}
+.wrap{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;gap:22px}
+header{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--rule);padding-bottom:16px}
+.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+h1{margin:4px 0 0;font-weight:500;font-size:clamp(24px,4vw,32px);letter-spacing:-.02em}
+h1 em{font-family:var(--serif);font-weight:400;color:var(--accent)}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,400px);gap:24px;align-items:start}
+@media (max-width:900px){.grid{grid-template-columns:minmax(0,1fr)}}
+.col{display:flex;flex-direction:column;gap:18px;min-width:0}
+section{display:flex;flex-direction:column;gap:12px;padding-bottom:18px;border-bottom:1px solid var(--rule)}
+h2{margin:0;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--mute)}
+.row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+@media (max-width:520px){.row{grid-template-columns:minmax(0,1fr)}}
+label.f,div.f{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--mute);min-width:0}
+select,input[type=number],input[type=text],input[type=date],textarea{background:var(--panel);color:var(--ink);border:1px solid var(--rule);border-radius:6px;padding:10px 12px;font:inherit;font-size:16px;width:100%}
+textarea{min-height:64px;resize:vertical}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{background:transparent;color:var(--mute);border:1px solid var(--rule);border-radius:999px;padding:8px 14px;font:inherit;font-size:14px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.checks{display:flex;flex-wrap:wrap;gap:8px}
+.chk{display:flex;align-items:center;gap:8px;border:1px solid var(--rule);border-radius:6px;padding:9px 12px;font-size:14px;cursor:pointer;user-select:none;color:var(--ink)}
+.chk input{accent-color:var(--accent);width:18px;height:18px;margin:0}
+.hint{font-size:12.5px;color:var(--mute);margin:0}
+.note{font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums;margin:0}
+aside{position:sticky;top:calc(env(safe-area-inset-top,0px) + 12px);background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:16px;min-width:0}
+@media (max-width:900px){aside{position:static;order:-1}}
+.big{font-size:44px;font-weight:500;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1}
+.sub{font-size:13px;color:var(--mute)}
+.minbox{display:flex;justify-content:space-between;gap:10px;border:1px dashed var(--rule);border-radius:6px;padding:10px 12px;font-size:13px;color:var(--mute);font-variant-numeric:tabular-nums}
+.minbox b{color:var(--ink);font-weight:600}
+.flag{font-size:13px;border-radius:6px;padding:10px 12px;border:1px solid var(--rule)}
+.flag.warn{border-color:#6b5230;color:var(--warn)}
+.flag.ok{border-color:#3f5240;color:var(--ok)}
+table.det{width:100%;border-collapse:collapse;font-size:13.5px;font-variant-numeric:tabular-nums}
+table.det td{padding:6px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+table.det td:last-child{text-align:right;white-space:nowrap;padding-left:12px}
+table.det tr.total td{border-bottom:0;font-weight:600;padding-top:10px}
+.formulas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.fm{border:1px solid var(--rule);border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:4px;min-width:0;background:transparent;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.fm[aria-pressed=true]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.fm b{font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--mute);font-weight:600;overflow-wrap:anywhere}
+.fm span{font-size:17px;font-weight:500;font-variant-numeric:tabular-nums}
+.fm small{font-size:11.5px;color:var(--mute);line-height:1.35}
+pre{white-space:pre-wrap;background:var(--bg);border:1px solid var(--rule);border-radius:6px;padding:12px;font:12.5px/1.55 var(--sans);color:var(--ink);margin:0;max-height:240px;overflow:auto}
+.btns{display:flex;gap:8px;flex-wrap:wrap}
+.btn{background:var(--ink);color:var(--bg);border:0;border-radius:6px;padding:11px 14px;font:inherit;font-weight:600;font-size:14px;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--rule);font-weight:500}
+details{border-top:1px solid var(--rule);padding-top:14px}
+details summary{cursor:pointer;color:var(--ink);font-size:14px;font-weight:500}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:12px}
+.sgrid h3{grid-column:1/-1;margin:12px 0 0;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:600}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+footer{font-size:12px;color:var(--mute);border-top:1px solid var(--rule);padding-top:14px;display:flex;flex-direction:column;gap:6px}
+
+/* devis imprimable */
+#devis{display:none}
+.paper{background:#fff;color:#141412;max-width:800px;margin:0 auto;padding:48px 52px;font-size:13px;line-height:1.55;border-radius:4px}
+.paper .top{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.paper .name{font-size:22px;font-weight:600;letter-spacing:-.01em}
+.paper .role{font-family:var(--serif);font-style:italic;color:#6b665e;font-size:15px}
+.paper .muted{color:#6b665e}
+.paper h4{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#6b665e;margin:26px 0 8px;font-weight:600}
+.paper table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.paper th{text-align:left;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:#6b665e;border-bottom:1px solid #141412;padding:6px 0;font-weight:600}
+.paper td{padding:8px 0;border-bottom:1px solid #e3ded4;vertical-align:top}
+.paper td.r,.paper th.r{text-align:right;padding-left:16px;white-space:nowrap}
+.paper .tot td{border-bottom:0;font-weight:600;font-size:15px;padding-top:12px}
+.paper ul{margin:0;padding-left:18px}
+.paper .sign{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:34px}
+.paper .sign div{border-top:1px solid #141412;padding-top:8px;min-height:90px}
+.devis-bar{max-width:800px;margin:0 auto 14px;display:flex;gap:8px;flex-wrap:wrap}
+body.show-devis .wrap{display:none}
+body.show-devis #devis{display:block}
+@media (max-width:600px){.paper{padding:28px 20px}.paper .sign{grid-template-columns:1fr}}
+@media print{
+  body{background:#fff;padding:0}
+  .devis-bar{display:none}
+  .paper{padding:0;max-width:none;border-radius:0}
+  @page{margin:16mm}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <span class="eyebrow">Ilan Quoirez · usage interne</span>
+      <h1>Calculateur de <em>devis</em></h1>
+    </div>
+    <div class="seg" id="mode" role="group" aria-label="Type de vente">
+      <button type="button" data-v="commande" aria-pressed="true">Commande sur mesure</button>
+      <button type="button" data-v="licence" aria-pressed="false">Licence catalogue</button>
+    </div>
+  </header>
+
+  <div class="grid">
+    <div class="col">
+      <section>
+        <h2>Le projet</h2>
+        <label class="f" for="type">Type de projet <select id="type"></select></label>
+        <label class="f" for="presta" id="prestaWrap">Ce que le client demande
+          <select id="presta">
+            <option value="saison">Toute la musique de la saison (par épisode)</option>
+            <option value="generique">Générique seul</option>
+            <option value="quelques">1 à 3 épisodes seulement</option>
+            <option value="ponct">Musiques ponctuelles (par minute)</option>
+            <option value="palette">Palette de thèmes</option>
+            <option value="licence">Morceau existant de ton catalogue</option>
+            <option value="chanson">Chanson ou morceau dans la scène</option>
+            <option value="promo">Promotion de la série (bande-annonce, teasers)</option>
+          </select>
+        </label>
+        <p class="note" id="rangeNote"></p>
+        <label class="f" for="budgetEp" id="budgetEpWrap"><span id="budgetEpLabel">Budget de l'épisode (facultatif, €)</span><input type="number" id="budgetEp" min="0" step="100000" placeholder="ex. 1200000" inputmode="numeric"></label>
+        <label class="f" for="qty" id="qtyWrap"><span id="qtyLabel">Quantité</span><input type="number" id="qty" min="1" step="1" value="1" inputmode="numeric"></label>
+        <div class="f" id="tailleWrap"><span>Taille du client</span>
+          <div class="seg" id="taille" role="group" aria-label="Taille du client">
+            <button type="button" data-v="petite" aria-pressed="false">Petite structure</button>
+            <button type="button" data-v="moyenne" aria-pressed="true">Moyenne</button>
+            <button type="button" data-v="grande" aria-pressed="false">Grande marque</button>
+          </div>
+        </div>
+        <div class="row" id="avWrap">
+          <label class="f" for="diff" id="diffWrap">Diffusion
+            <select id="diff"><option value="salles">Salles puis TV</option><option value="tv">TV seule</option><option value="svod">Plateforme mondiale (Netflix, Prime…)</option><option value="web">Web uniquement</option></select>
+          </label>
+          <label class="f" for="prod">Production
+            <select id="prod"><option value="fr">Française</option><option value="etr">Étrangère, droits d'auteur préservés</option><option value="buy">Étrangère, rachat total des droits</option><option value="coprod">Coproduction internationale</option></select>
+          </label>
+        </div>
+        <div class="f" id="excWrap"><span>Exclusivité de la licence</span>
+          <select id="licExc">
+            <option value="none">Non exclusive</option>
+            <option value="secteur">Exclusivité par secteur</option>
+            <option value="territoire">Exclusivité par territoire</option>
+            <option value="totale">Exclusivité totale pendant la durée</option>
+            <option value="definitive">Exclusivité totale et définitive</option>
+          </select>
+        </div>
+        <label class="f" for="budget">Budget musique annoncé par le client (facultatif, € HT)<input type="number" id="budget" min="0" step="100" placeholder="ex. 5000" inputmode="numeric"></label>
+      </section>
+
+      <section id="droitsSec">
+        <h2>Utilisation demandée</h2>
+        <div class="row">
+          <label class="f" for="annees">Années en plus de la durée de base<input type="number" id="annees" min="0" step="1" value="0" inputmode="numeric"></label>
+          <label class="f" for="medias">Médias en plus du média principal<input type="number" id="medias" min="0" step="1" value="0" inputmode="numeric"></label>
+        </div>
+        <div class="row">
+          <label class="f" for="territoire">Territoire
+            <select id="territoire"><option value="fr">France (ou un seul pays)</option><option value="eu">Europe / plusieurs pays</option><option value="monde">Monde</option></select>
+          </label>
+          <label class="f" for="versions" id="versWrap">Versions en plus (15 s, 6 s…)<input type="number" id="versions" min="0" step="1" value="0" inputmode="numeric"></label>
+        </div>
+        <p class="hint">Une pub diffusée à la TV et sur le web = 1 média en plus.</p>
+      </section>
+
+      <section id="condSec">
+        <h2>Conditions</h2>
+        <div class="row">
+          <label class="f" for="complexite">Complexité de la musique
+            <select id="complexite"><option value="0">Simple</option><option value="1">Moyenne</option><option value="2">Élevée (orchestration, plusieurs morceaux)</option></select>
+          </label>
+          <label class="f" for="retours">Allers-retours au-delà des 3 inclus<input type="number" id="retours" min="0" step="1" value="0" inputmode="numeric"></label>
+        </div>
+        <div class="checks">
+          <label class="chk"><input type="checkbox" id="urgence"> Délai de moins de 3 jours</label>
+          <label class="chk"><input type="checkbox" id="exclu"> Exclusivité longue</label>
+          <label class="chk"><input type="checkbox" id="edition"> Le client veut l'édition</label>
+          <label class="chk"><input type="checkbox" id="master"> Le client veut le master</label>
+          <label class="chk"><input type="checkbox" id="exception"> Exception : accepter sous le plancher</label>
+        </div>
+      </section>
+
+      <section>
+        <h2>Négociation</h2>
+        <p class="hint">Coche seulement si le client accepte la contrepartie. La réduction ne passe jamais sous ton plancher.</p>
+        <div class="checks">
+          <label class="chk"><input type="checkbox" id="negEng"> Engagement sur plusieurs projets</label>
+          <label class="chk"><input type="checkbox" id="negCred"> Crédit visible + droit de montrer le projet</label>
+        </div>
+        <label class="f" for="nbProjets" id="nbProjWrap">Nombre de projets engagés<input type="number" id="nbProjets" min="2" step="1" value="3" inputmode="numeric"></label>
+      </section>
+
+      <section>
+        <h2>Paiement</h2>
+        <div class="row">
+          <label class="f" for="paiement">Échéancier
+            <select id="paiement">
+              <option value="100">100 % à la commande</option>
+              <option value="5050" selected>50 % à la signature, 50 % à la livraison</option>
+              <option value="304030">30 % signature, 40 % maquettes validées, 30 % livraison</option>
+            </select>
+          </label>
+          <label class="f" for="delai">Délai de paiement des factures
+            <select id="delai">
+              <option value="à réception">À réception</option>
+              <option value="à 30 jours" selected>À 30 jours</option>
+              <option value="à 45 jours">À 45 jours</option>
+              <option value="à 60 jours">À 60 jours</option>
+            </select>
+          </label>
+        </div>
+      </section>
+
+      <section>
+        <h2>Le client (pour le devis)</h2>
+        <div class="row">
+          <label class="f" for="cSociete">Société<input type="text" id="cSociete" autocomplete="off"></label>
+          <label class="f" for="cContact">Contact<input type="text" id="cContact" autocomplete="off"></label>
+        </div>
+        <label class="f" for="cAdresse">Adresse<textarea id="cAdresse"></textarea></label>
+        <div class="row">
+          <label class="f" for="cProjet">Nom du projet<input type="text" id="cProjet" autocomplete="off" placeholder="ex. Campagne printemps 2027"></label>
+          <label class="f" for="cLivraison">Date de livraison prévue<input type="date" id="cLivraison"></label>
+        </div>
+        <div class="btns"><button type="button" class="btn ghost" id="clearClient">Vider le client</button></div>
+      </section>
+
+      <details id="reglages">
+        <summary>Réglages : tes coordonnées et ta grille</summary>
+        <div class="sgrid" id="sMe"></div>
+        <div class="sgrid" id="sCmd"></div>
+        <div class="sgrid" id="sLic"></div>
+        <div class="sgrid" id="sExc"></div>
+        <div class="sgrid" id="sAdj"></div>
+        <div class="btns" style="margin-top:14px"><button type="button" class="btn ghost" id="reset">Revenir à ma grille d'origine</button></div>
+        <p class="hint" style="margin-top:8px">Enregistré dans ce navigateur, sur cet appareil. Sur un autre appareil, ta grille d'origine est déjà là ; seules tes coordonnées sont à refaire.</p>
+      </details>
+    </div>
+
+    <aside aria-live="polite">
+      <div>
+        <span class="eyebrow" id="prixLabel">Prix proposé · HT</span>
+        <div class="big" id="prix">—</div>
+        <div class="sub" id="sousPrix"></div>
+      </div>
+      <div class="minbox" id="minbox"><span>Plus bas possible avec contreparties</span><b id="minNeg">—</b></div>
+      <div id="flags" style="display:flex;flex-direction:column;gap:8px"></div>
+      <div>
+        <span class="eyebrow">Trois prix au choix · touche celui du devis</span>
+        <div class="formulas" id="formules" style="margin-top:8px"></div>
+      </div>
+      <table class="det" id="detail"></table>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <span class="eyebrow">Texte à copier</span>
+        <pre id="resume"></pre>
+        <div class="btns">
+          <button type="button" class="btn" id="copier">Copier le texte</button>
+          <button type="button" class="btn ghost" id="voirDevis">Voir le devis</button>
+          <span class="hint" id="copied" hidden style="align-self:center">Copié</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    <span>Grille d'Ilan Quoirez, fixée le 16 octobre 2026, à partir des repères SNAC / UCMF / UNAC, SACEM, CNC et GameSoundCon.</span>
+    <span>Le prix couvre la composition (ou la licence) et un droit d'utilisation limité. Tu restes l'auteur et tu touches tes droits SACEM en plus.</span>
+  </footer>
+</div>
+
+<div id="devis">
+  <div class="devis-bar">
+    <button type="button" class="btn" id="imprimer">Enregistrer en PDF / imprimer</button>
+    <button type="button" class="btn ghost" id="retour">Retour au calculateur</button>
+    <button type="button" class="btn ghost" id="nouveauNum">Numéro suivant</button>
+  </div>
+  <div class="paper" id="paper"></div>
+</div>
+
+<script>
+(function(){
+"use strict";
+const $=id=>document.getElementById(id);
+const eur=n=>new Intl.NumberFormat("fr-FR",{maximumFractionDigits:0}).format(Math.round(n))+" €";
+const esc=s=>String(s==null?"":s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const rnd=n=>n<2000?Math.round(n/100)*100:Math.round(n/500)*500;
+
+/* ===== Grille d'Ilan (16/10/2026) =====
+ Commande : [libellé, unité, durée de base, droits modulables, plancher, prix moyen] */
+const CMD={
+  pub_tv_nat:["Pub TV nationale, 0 à 30 s","forfait","1 an",true,2000,3500],
+  pub_cine:["Pub cinéma nationale","forfait","1 an",true,3000,4500],
+  pub_radio_nat:["Pub radio nationale","forfait","1 an",true,4000,5500],
+  id_tv:["Identité sonore TV, 5 s","forfait","3 ans",true,2000,3500],
+  id_radio:["Identité sonore radio, 5 s","forfait","3 ans",true,2000,3000],
+  lm_micro:["Long métrage, budget de moins de 1 M€","forfait","exploitation du film",false,2000,4000,"av"],
+  lm_1_4:["Long métrage, budget de 1 à 4 M€","forfait","exploitation du film",false,5000,8000,"av"],
+  lm_4_7:["Long métrage, budget de 4 à 7 M€","forfait","exploitation du film",false,10000,15000,"av"],
+  lm_7_10:["Long métrage, budget de 7 à 10 M€","forfait","exploitation du film",false,15000,22000,"av"],
+  lm_10:["Long métrage, budget de plus de 10 M€","forfait","exploitation du film",false,25000,35000,"av"],
+  telefilm:["Téléfilm","forfait","exploitation du film",false,7500,9500,"av"],
+  s_tv26:["Série TV chaîne française, épisode de 26 min","episode","exploitation de la série",false,2000,2000,"av"],
+  s_tv52:["Série TV chaîne française, épisode de 52 min","episode","exploitation de la série",false,3000,4000,"av"],
+  s_svod30:["Série plateforme (Netflix, Prime…), épisode de 26 à 30 min","episode","exploitation de la série",false,3000,5500,"avp"],
+  s_svod52:["Série plateforme (Netflix, Prime…), épisode de 45 à 60 min","episode","exploitation de la série",false,6000,11000,"avp"],
+  s_anim:["Série d'animation, épisode de 11 à 13 min","episode","exploitation de la série",false,800,1200,"av"],
+  s_web:["Websérie ou série YouTube, par épisode","episode","exploitation de la série",false,500,800,"av"],
+  d_tv:["Documentaire TV, 52 min","forfait","exploitation du film",false,2000,3000,"av"],
+  d_cine:["Documentaire cinéma","forfait","exploitation du film",false,3000,5000,"av"],
+  d_serie:["Série documentaire, par épisode","episode","exploitation de la série",false,2000,2500,"av"],
+  event:["Spectacle, événement","forfait","l'événement",false,1500,3000],
+  immersif:["Installation immersive","forfait","durée de l'exposition",false,2000,4000],
+  pub_web:["Pub web, 30 s à 1 min","forfait","1 an",true,1000,1500],
+  pub_reg:["Pub TV ou radio régionale","forfait","1 an",true,750,1000],
+  id_web:["Identité sonore web, 5 s","forfait","3 ans",true,750,1000],
+  brand:["Contenu de marque, vidéo de 1 à 2 min","video","1 an",true,800,1200],
+  corporate:["Vidéo corporate, 1 à 2 min","video","1 an",true,800,1000],
+  podcast:["Générique de podcast ou radio","forfait","3 ans",true,800,1200],
+  jeu:["Jeu vidéo (par minute de musique)","minute","exploitation du jeu",false,300,450],
+  court:["Court métrage","forfait","exploitation du film",false,500,1000],
+  artiste:["Morceau pour un artiste (composition + production)","titre","exploitation du titre",false,500,1000]
+};
+/* Licence : [libellé, prix non exclusif, durée de base, droits modulables, commande équivalente (exclusivité définitive)] */
+const LIC={
+  l_social:["Réseaux sociaux, petite structure",300,"1 an",true,"brand"],
+  l_court:["Court métrage",300,"exploitation du film",false,"court"],
+  l_podcast:["Générique de podcast",400,"3 ans",true,"podcast"],
+  l_corpo:["Vidéo corporate ou interne",500,"1 an",true,"corporate"],
+  l_event:["Événement, spectacle",500,"l'événement",false,"event"],
+  l_jeu:["Jeu vidéo indépendant",500,"exploitation du jeu",false,null],
+  l_pubweb:["Pub web",800,"1 an",true,"pub_web"],
+  l_docu:["Documentaire ou programme TV",800,"exploitation du programme",false,"d_tv"],
+  l_tvreg:["Pub TV régionale",1000,"1 an",true,"pub_reg"],
+  l_film:["Long métrage ou série",1500,"exploitation de l'œuvre",false,"s_tv52"],
+  l_tvnat:["Pub TV nationale",2500,"1 an",true,"pub_tv_nat"]
+};
+/* Prestations série : [libellé, unité, chaîne [plancher, prix, minimum], plateforme [plancher, prix, minimum]] */
+const PRESTA={
+  saison:["Toute la musique de la saison","episode"],
+  generique:["Générique seul (thème + versions longue et courte)","forfait",[3000,5000],[6000,10000]],
+  quelques:["Musique de 1 à 3 épisodes","episode"],
+  ponct:["Musiques ponctuelles","minute",[200,300,1000],[300,550,2000]],
+  palette:["Palette de thèmes (5 à 8 thèmes et variantes)","forfait",[7000,10000],[15000,25000]],
+  licence:["Licence d'un morceau existant, pour la saison","forfait",[0,1500],[0,2000]],
+  chanson:["Chanson ou morceau dans la scène","titre",[1000,2000],[2000,3000]],
+  promo:["Musique de promotion (bande-annonce, teasers)","forfait",[1000,1500],[2000,3000]]
+};
+const SERIES=["s_tv26","s_tv52","s_svod30","s_svod52"];
+const EXC_DEF={secteur:1.5,territoire:1.5,totale:2.5,definitive:4};
+const EXC_LBL={none:"Non exclusive",secteur:"Exclusivité par secteur",territoire:"Exclusivité par territoire",totale:"Exclusivité totale pendant la durée",definitive:"Exclusivité totale et définitive"};
+const ADJ_DEF={petite:-15,grande:20,annee:75,media:40,europe:50,monde:100,version:15,cplx1:20,cplx2:50,urgence:25,exclu:40,edition:40,master:25,retour:8,negEng:-10,negCred:-5,negMax:-15,dTv:0,dSvod:25,dWeb:-30,pEtr:20,pBuy:100,pCoprod:15,validite:30};
+const ADJ_LBL={petite:"Petite structure (%)",grande:"Grande marque (%)",annee:"Chaque année en plus (%)",media:"Chaque média en plus (%)",europe:"Europe / plusieurs pays (%)",monde:"Monde (%)",version:"Chaque version en plus (%)",cplx1:"Complexité moyenne (%)",cplx2:"Complexité élevée (%)",urgence:"Délai < 3 jours (%)",exclu:"Exclusivité longue, commande (%)",edition:"Édition cédée (%)",master:"Master cédé (%)",retour:"Chaque aller-retour en plus (%)",negEng:"Négo : engagement plusieurs projets (%)",negCred:"Négo : crédit + portfolio (%)",negMax:"Négo : réduction maximum (%)",dTv:"Film : diffusion TV seule (%)",dSvod:"Film : plateforme mondiale (%)",dWeb:"Film : web uniquement (%)",pEtr:"Production étrangère, droits préservés (%)",pBuy:"Production étrangère, rachat total (%)",pCoprod:"Coproduction internationale (%)",validite:"Validité du devis (jours)"};
+const ME_DEF={nom:"Ilan Quoirez",titre:"Compositeur",adresse:"",siret:"",email:"",site:"ilanquoirez.com",tva:"TVA non applicable, art. 293 B du CGI",regime:"Rémunération versée en droits d'auteur (prime de commande)."};
+const ME_LBL={nom:"Ton nom",titre:"Ton titre",adresse:"Ton adresse",siret:"N° SIRET",email:"E-mail",site:"Site",tva:"Mention TVA",regime:"Mention droits d'auteur"};
+
+/* ===== Stockage ===== */
+const KEY="iq-devis-v5";
+let S={cmd:{},lic:{},exc:{},adj:{},me:{},seq:{year:new Date().getFullYear(),n:1},client:{}};
+try{const s=JSON.parse(localStorage.getItem(KEY)||"null"); if(s) S=Object.assign(S,s);}catch(e){}
+if(!S.seq||S.seq.year!==new Date().getFullYear()) S.seq={year:new Date().getFullYear(),n:1};
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}};
+const cPl=k=>S.cmd[k]&&S.cmd[k].pl!=null?+S.cmd[k].pl:CMD[k][4];
+const cPx=k=>S.cmd[k]&&S.cmd[k].px!=null?+S.cmd[k].px:CMD[k][5];
+const lPx=k=>S.lic[k]!=null?+S.lic[k]:LIC[k][1];
+const exc=k=>k==="none"?1:(S.exc[k]!=null?+S.exc[k]:EXC_DEF[k]);
+const A=k=>S.adj[k]!=null?+S.adj[k]:ADJ_DEF[k];
+const ME=k=>S.me[k]!=null?S.me[k]:ME_DEF[k];
+
+/* ===== Réglages ===== */
+function inp(id,val,type,onv,label){
+  const l=document.createElement("label"); l.className="f"; l.htmlFor=id; if(label) l.append(label);
+  const i=document.createElement(type==="area"?"textarea":"input"); if(type!=="area") i.type=type==="number"?"number":"text";
+  i.id=id; i.value=val; if(type==="number"){i.step="any";i.inputMode="decimal";}
+  i.addEventListener("input",()=>{onv(type==="number"?(i.value===""?null:+i.value):i.value);save();calc();});
+  l.appendChild(i); return l;
+}
+const h3=(p,t)=>{const h=document.createElement("h3");h.textContent=t;p.appendChild(h);};
+function buildSettings(){
+  const me=$("sMe"),cm=$("sCmd"),li=$("sLic"),ex=$("sExc"),ad=$("sAdj"); [me,cm,li,ex,ad].forEach(x=>x.innerHTML="");
+  h3(me,"Tes coordonnées (sur le devis)");
+  for(const k in ME_DEF) me.appendChild(inp("me_"+k,ME(k),k==="adresse"?"area":"text",v=>S.me[k]=v,ME_LBL[k]));
+  h3(cm,"Commandes : plancher / prix moyen (€ HT)");
+  for(const k in CMD){
+    const box=document.createElement("div"); box.className="f"; box.textContent=CMD[k][0];
+    const p=document.createElement("div"); p.className="pair";
+    p.appendChild(inp("cpl_"+k,cPl(k),"number",v=>{S.cmd[k]=S.cmd[k]||{};S.cmd[k].pl=v;}));
+    p.appendChild(inp("cpx_"+k,cPx(k),"number",v=>{S.cmd[k]=S.cmd[k]||{};S.cmd[k].px=v;}));
+    box.appendChild(p); cm.appendChild(box);
+  }
+  h3(li,"Licences non exclusives, par morceau (€ HT)");
+  for(const k in LIC) li.appendChild(inp("lp_"+k,lPx(k),"number",v=>S.lic[k]=v,LIC[k][0]));
+  h3(ex,"Exclusivité des licences (multiplicateur)");
+  for(const k in EXC_DEF) ex.appendChild(inp("ex_"+k,exc(k),"number",v=>S.exc[k]=v,EXC_LBL[k]));
+  h3(ad,"Ajustements, négociation, devis");
+  for(const k in ADJ_DEF) ad.appendChild(inp("ad_"+k,A(k),"number",v=>S.adj[k]=v,ADJ_LBL[k]));
+}
+$("reset").addEventListener("click",()=>{S.cmd={};S.lic={};S.exc={};S.adj={};save();buildSettings();calc();});
+
+/* ===== Interface ===== */
+const segVal=id=>{const b=document.querySelector("#"+id+" [aria-pressed=true]");return b?b.dataset.v:null;};
+const mode=()=>segVal("mode");
+const sel=$("type");
+function fillTypes(){
+  const src=mode()==="licence"?LIC:CMD, prev=sel.value; sel.innerHTML="";
+  for(const k in src){const o=document.createElement("option");o.value=k;o.textContent=src[k][0];sel.appendChild(o);}
+  sel.value=(prev in src)?prev:(mode()==="licence"?"l_pubweb":"pub_tv_nat");
+}
+document.querySelectorAll(".seg").forEach(g=>g.addEventListener("click",e=>{
+  const b=e.target.closest("button"); if(!b) return;
+  g.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));
+  if(g.id==="mode"){fillTypes();chosen=1;$("qty").value=1;$("licExc").value="none";}
+  calc();
+}));
+sel.addEventListener("input",()=>{$("qty").value=1;$("presta").value="saison";calc();});
+$("presta").addEventListener("input",()=>{$("qty").value=1;calc();});
+const CLIENT=["cSociete","cContact","cAdresse","cProjet","cLivraison"];
+document.querySelectorAll(".col input,.col select,.col textarea").forEach(el=>{
+  if(el.closest("#reglages")) return;
+  el.addEventListener("input",()=>{ if(CLIENT.includes(el.id)){S.client[el.id]=el.value;save();} calc(); });
+});
+CLIENT.forEach(id=>{ if(S.client&&S.client[id]) $(id).value=S.client[id]; });
+$("clearClient").addEventListener("click",()=>{CLIENT.forEach(id=>$(id).value="");S.client={};save();calc();});
+
+/* ===== Calcul ===== */
+function read(){return{mode:mode(),type:sel.value,taille:segVal("taille"),qty:Math.max(1,+$("qty").value||1),
+  annees:+$("annees").value||0,medias:+$("medias").value||0,terr:$("territoire").value,versions:+$("versions").value||0,
+  cplx:$("complexite").value,retours:+$("retours").value||0,urg:$("urgence").checked,exclu:$("exclu").checked,
+  edition:$("edition").checked,master:$("master").checked,licExc:$("licExc").value,
+  negEng:$("negEng").checked,negCred:$("negCred").checked,diff:$("diff").value,prod:$("prod").value,presta:$("presta").value};}
+
+function compute(o){
+  const lines=[]; let base, floor=0, t, mod;
+  if(o.mode==="licence"){
+    t=LIC[o.type]; mod=t[3];
+    base=lPx(o.type)*o.qty;
+    lines.push([`Licence non exclusive : ${t[0]}${o.qty>1?` × ${o.qty} morceaux`:""}`,base]);
+  }else{
+    t=CMD[o.type]; mod=t[3];
+    const ser=SERIES.includes(o.type)&&o.presta&&o.presta!=="saison";
+    if(ser){
+      const P=PRESTA[o.presta], plat=o.type.startsWith("s_svod"), short=o.type==="s_tv26"||o.type==="s_svod30";
+      if(o.presta==="quelques"){
+        const q=o.qty; base=cPx(o.type)*q*1.2; floor=cPl(o.type)*q*1.2;
+        lines.push([`${P[0]} : ${t[0]} × ${q} épisode${q>1?"s":""} (+20 %)`,base]);
+      }else{
+        const v=plat?P[3]:P[2], q=(P[1]==="forfait")?1:o.qty, k=(o.presta==="palette"&&short)?0.7:1;
+        base=v[1]*q*k; floor=v[0]*q*k;
+        if(v[2]){base=Math.max(base,v[2]);floor=Math.max(floor,v[2]);}
+        lines.push([`${P[0]}, ${plat?"plateforme":"chaîne française"}${P[1]==="minute"?` × ${q} min`:P[1]==="titre"&&q>1?` × ${q} titres`:""}${k<1?" (format court, −30 %)":""}${v[2]&&v[1]*q<v[2]?` (minimum de commande ${eur(v[2])})`:""}`,base]);
+      }
+    }else{
+    const q=t[1]==="forfait"?1:o.qty;
+    base=cPx(o.type)*q; floor=cPl(o.type)*q;
+    const qt=t[1]==="episode"?` × ${q} épisode${q>1?"s":""}`:t[1]==="minute"?` × ${q} min`:t[1]==="video"?` × ${q} vidéo${q>1?"s":""}`:t[1]==="titre"?` × ${q} titre${q>1?"s":""}`:"";
+    lines.push([`Prix moyen : ${t[0]}${qt}`,base]);
+    }
+    if(t[6]){
+      const D={tv:["Diffusion TV seule","dTv"],svod:["Plateforme mondiale","dSvod"],web:["Web uniquement","dWeb"]};
+      const P={etr:["Production étrangère, droits préservés","pEtr"],buy:["Production étrangère, rachat total des droits","pBuy"],coprod:["Coproduction internationale","pCoprod"]};
+      if(t[6]==="av"&&D[o.diff]){const p=A(D[o.diff][1]);if(p){const v=base*p/100;base+=v;lines.push([`${D[o.diff][0]} (${p>0?"+":""}${p} %)`,v]);}}
+      if(P[o.prod]){const p=A(P[o.prod][1]);if(p){const v=base*p/100;base+=v;lines.push([`${P[o.prod][0]} (${p>0?"+":""}${p} %)`,v]);}}
+    }
+    if(o.taille!=="moyenne"){const p=A(o.taille);const v=base*p/100;base+=v;lines.push([o.taille==="petite"?`Petite structure (${p} %)`:`Grande marque (+${p} %)`,v]);}
+  }
+  const pct=[];
+  if(mod){
+    if(o.annees>0)pct.push([`${o.annees} année${o.annees>1?"s":""} en plus`,A("annee")*o.annees]);
+    if(o.medias>0)pct.push([`${o.medias} média${o.medias>1?"s":""} en plus`,A("media")*o.medias]);
+    if(o.terr==="eu")pct.push(["Europe / plusieurs pays",A("europe")]);
+    if(o.terr==="monde")pct.push(["Monde",A("monde")]);
+    if(o.mode!=="licence"&&o.versions>0)pct.push([`${o.versions} version${o.versions>1?"s":""} en plus`,A("version")*o.versions]);
+  }
+  if(o.mode!=="licence"){
+    if(o.cplx==="1")pct.push(["Complexité moyenne",A("cplx1")]);
+    if(o.cplx==="2")pct.push(["Complexité élevée",A("cplx2")]);
+    if(o.urg)pct.push(["Délai court",A("urgence")]);
+    if(o.exclu)pct.push(["Exclusivité longue",A("exclu")]);
+    if(o.edition)pct.push(["Édition cédée",A("edition")]);
+    if(o.master)pct.push(["Master cédé",A("master")]);
+    if(o.retours>0)pct.push([`${o.retours} aller${o.retours>1?"s":""}-retour${o.retours>1?"s":""} en plus`,A("retour")*o.retours]);
+  }
+  let total=base; for(const [l,p] of pct){const v=base*p/100;total+=v;lines.push([`${l} (+${p} %)`,v]);}
+  if(o.mode==="licence"&&o.licExc!=="none"){
+    const m=exc(o.licExc); const v=total*(m-1); total+=v; lines.push([`${EXC_LBL[o.licExc]} (× ${String(m).replace(".",",")})`,v]);
+    if(o.licExc==="definitive"){ const eq=LIC[o.type][4]; if(eq){const minEq=cPx(eq)*o.qty; if(total<minEq){lines.push([`Remonté au prix d'une commande équivalente`,minEq-total]); total=minEq;}} }
+  }
+  return{total,lines,floor,t,mod};
+}
+function finalize(o,c){
+  const r=rnd(c.total);
+  if(o.mode!=="licence"&&!$("exception").checked&&r<c.floor) return{p:c.floor,raised:true,r};
+  return{p:Math.max(100,r),raised:false,r};
+}
+function negotiate(o,p,floor){
+  let d=0; const why=[];
+  if(o.negEng){d+=-A("negEng");why.push("engagement sur plusieurs projets");}
+  if(o.negCred){d+=-A("negCred");why.push("crédit visible et droit de montrer le projet");}
+  d=Math.min(d,-A("negMax"));
+  let np=rnd(p*(1-d/100));
+  const fl=(o.mode!=="licence"&&!$("exception").checked)?floor:0;
+  if(np<fl) np=fl;
+  return{np,d,why};
+}
+
+let chosen=1,last=null;
+function calc(){
+  const o=read(), lic=o.mode==="licence", t=lic?LIC[o.type]:CMD[o.type];
+  const isSer=!lic&&SERIES.includes(o.type);
+  $("prestaWrap").hidden=!isSer;
+  const unit=lic?"morceau":(isSer?PRESTA[o.presta][1]:t[1]);
+  $("qtyWrap").hidden=!lic&&unit==="forfait";
+  $("qtyLabel").textContent=lic?"Nombre de morceaux":unit==="episode"?"Nombre d'épisodes":unit==="minute"?"Minutes de musique":unit==="titre"?"Nombre de titres":"Nombre de vidéos";
+  $("budgetEpWrap").hidden=lic||!t[6];
+  $("budgetEpLabel").textContent=(!lic&&t[1]==="episode")?"Budget de l'épisode (facultatif, €)":"Budget du film (facultatif, €)";
+  $("tailleWrap").hidden=lic; $("excWrap").hidden=!lic;
+  $("avWrap").hidden=lic||!t[6]; $("diffWrap").hidden=lic||t[6]!=="av";
+  $("droitsSec").hidden=!t[3]; $("versWrap").hidden=lic;
+  $("condSec").hidden=lic;
+  $("nbProjWrap").hidden=!o.negEng;
+  if(lic) $("rangeNote").textContent=`Ton prix : ${eur(lPx(o.type))} par morceau, non exclusif · durée de base : ${t[2]}`;
+  else if(isSer&&o.presta!=="saison"&&o.presta!=="quelques"){const P=PRESTA[o.presta],v=o.type.startsWith("s_svod")?P[3]:P[2],u=P[1]==="minute"?" par minute":P[1]==="titre"?" par titre":"",k=(o.presta==="palette"&&(o.type==="s_tv26"||o.type==="s_svod30"))?0.7:1;
+    $("rangeNote").textContent=`${P[0]} · ton prix : ${eur(v[1]*k)}${u}${v[0]?` · plancher : ${eur(v[0]*k)}${u}`:""}${v[2]?` · minimum de commande : ${eur(v[2])}`:""}`;}
+  else{const u=unit==="episode"?" par épisode":unit==="minute"?" par minute":unit==="video"?" par vidéo":unit==="titre"?" par titre":"";
+    const k=isSer&&o.presta==="quelques"?1.2:1;
+    $("rangeNote").textContent=`Ton prix moyen : ${eur(cPx(o.type)*k)}${u} · ton plancher : ${eur(cPl(o.type)*k)}${u} · durée de base : ${t[2]}`;}
+
+  // trois formules
+  const essO={...o,annees:0,medias:0,terr:"fr",versions:0,exclu:false,master:false,edition:false,licExc:"none"};
+  const extO=lic?{...o,licExc:o.licExc==="none"?"secteur":o.licExc,annees:t[3]?o.annees+1:o.annees}:{...o,annees:t[3]?o.annees+1:o.annees,exclu:true};
+  const F=[["Essentielle",essO,t[3]?"Média principal, 1 pays, durée de base, sans exclusivité en plus":"Sans exclusivité, édition ni master"],
+           ["Demandée",o,"Ce que le client a demandé"],
+           ["Étendue",extO,lic?(t[3]?"+1 année et exclusivité secteur":"Exclusivité secteur"):(t[3]?"+1 année et exclusivité longue":"Exclusivité longue")]];
+  const FR=F.map(x=>{const c=compute(x[1]);return{c,f:finalize(x[1],c)};});
+  const fm=$("formules"); fm.innerHTML="";
+  F.forEach((x,i)=>{const b=document.createElement("button");b.type="button";b.className="fm";b.setAttribute("aria-pressed",String(i===chosen));
+    b.innerHTML="<b></b><span></span><small></small>";b.children[0].textContent=x[0];b.children[1].textContent=eur(FR[i].f.p);b.children[2].textContent=x[2];
+    b.addEventListener("click",()=>{chosen=i;calc();});fm.appendChild(b);});
+
+  const po=F[chosen][1], pc=FR[chosen].c, pf=FR[chosen].f;
+  const neg=negotiate(o,pf.p,pc.floor);
+  const final=(o.negEng||o.negCred)?neg.np:pf.p;
+  const maxNeg=negotiate({...o,negEng:true,negCred:true},pf.p,pc.floor).np;
+
+  $("prixLabel").textContent=(o.negEng||o.negCred)?"Prix négocié · HT":"Prix proposé · HT";
+  $("prix").textContent=eur(final);
+  $("sousPrix").textContent=`Formule ${F[chosen][0].toLowerCase()}${(o.negEng||o.negCred)?` · avant négociation : ${eur(pf.p)}`:""}`;
+  $("minNeg").textContent=eur(maxNeg);
+
+  const det=$("detail"); det.innerHTML="";
+  for(const [l,v] of pc.lines){const tr=det.insertRow();tr.insertCell().textContent=l;tr.insertCell().textContent=(v<0?"− ":"+ ")+eur(Math.abs(v));}
+  let tr=det.insertRow();tr.insertCell().textContent="Calculé";tr.insertCell().textContent=eur(pc.total);
+  tr=det.insertRow();tr.insertCell().textContent=pf.raised?"Relevé à ton plancher":"Arrondi";tr.insertCell().textContent=eur(pf.p);
+  if(o.negEng||o.negCred){tr=det.insertRow();tr.insertCell().textContent=`Négociation (−${neg.d} %)`;tr.insertCell().textContent=eur(neg.np);}
+  tr=det.insertRow();tr.className="total";tr.insertCell().textContent="Prix du devis";tr.insertCell().textContent=eur(final);
+
+  const fl=$("flags"); fl.innerHTML="";
+  const add=(cls,txt)=>{const d=document.createElement("div");d.className="flag "+cls;d.textContent=txt;fl.appendChild(d);};
+  if(pf.raised) add("warn",`Le calcul donne ${eur(pf.r)}, sous ton plancher de ${eur(pc.floor)}. Ajoute des éléments (versions, médias, durée) ou propose une licence d'un morceau existant.`);
+  if(!lic&&$("exception").checked&&pf.r<pc.floor) add("warn","Exception activée : prix sous ton plancher. Exige ton nom au générique et le droit de montrer le projet.");
+  if((o.negEng||o.negCred)&&neg.np===pc.floor&&!lic) add("warn","La négociation bute sur ton plancher.");
+  const b=+$("budget").value||0;
+  if(b>0){ if(b>=final*1.15) add("ok",`Budget annoncé ${eur(b)} : tu peux monter autour de ${eur(rnd(b*0.9))} à ${eur(rnd(b))}.`);
+    else if(b<final*0.85) add("warn",`Budget annoncé ${eur(b)} : sous ton prix. Propose la formule essentielle, ou une réduction contre engagement sur plusieurs projets.`);
+    else add("ok",`Budget annoncé ${eur(b)} : il correspond à ton prix.`); }
+
+  const be=+$("budgetEp").value||0;
+  if(!lic&&t[6]&&be>0){
+    const isLm=o.type.startsWith("lm_"), perEp=t[1]==="episode";
+    const nEp=perEp&&(!isSer||o.presta==="saison"||o.presta==="quelques")?Math.max(1,o.qty):1;
+    const mus=(isLm?Math.max(be*0.015,20000):be*0.013)*nEp;
+    const share=final/mus*100;
+    add(share<25?"ok":share>60?"warn":"ok",`Budget musique indicatif : ${eur(mus)}${nEp>1?` pour ${nEp} épisodes`:""} (${isLm?"1,5 % du film, minimum 20 000 €, repère CNC":"1,3 % du budget, repère SACEM"}). Ton prix en représente ${Math.round(share)} %${share<25?" : tu as de la marge pour monter.":share>60?". Ce budget couvre aussi l'enregistrement et les musiciens : ton prix est haut.":"."}`);
+  }
+
+  last={o:po,t:lic?LIC[po.type]:CMD[po.type],price:final,lic,neg:(o.negEng||o.negCred)?neg:null,nb:+$("nbProjets").value||2};
+  $("resume").textContent=summary(last).join("\n");
+}
+
+/* ===== Textes ===== */
+function schedule(price){
+  const v=$("paiement").value;
+  if(v==="100") return[["À la commande",100]];
+  if(v==="304030") return[["À la signature",30],["À la validation des maquettes",40],["À la livraison",30]];
+  return[["À la signature",50],["À la livraison",50]];
+}
+function droits(x){
+  const o=x.o,t=x.t,lic=x.lic,mod=t[3],base=t[2],q=o.qty;
+  const terr={fr:"France",eu:"Europe",monde:"Monde"}[o.terr], d=[];
+  if(lic) d.push(`Licence de synchronisation : ${t[0]}${q>1?` (${q} morceaux)`:""}`);
+  else if(SERIES.includes(o.type)&&o.presta&&o.presta!=="saison"){const P=PRESTA[o.presta];d.push(`${o.presta==="licence"?"Licence de synchronisation":"Composition originale"} : ${P[0]}${P[1]==="minute"?` (${q} min de musique)`:P[1]==="episode"?` (${q} épisode${q>1?"s":""})`:P[1]==="titre"&&q>1?` (${q} titres)`:""}, ${t[0]}`);}
+  else{const u=t[1];d.push(`Composition originale : ${t[0]}${u==="episode"?` (${q} épisodes)`:u==="minute"?` (${q} min de musique)`:u==="video"?` (${q} vidéo${q>1?"s":""})`:u==="titre"?` (${q} titre${q>1?"s":""})`:""}`);}
+  if(mod){
+    d.push(`Médias : média principal${o.medias>0?` + ${o.medias} média${o.medias>1?"s":""} supplémentaire${o.medias>1?"s":""}`:""}`);
+    d.push(`Territoire : ${terr}`);
+    d.push(`Durée d'exploitation : ${base}${o.annees>0?` + ${o.annees} an${o.annees>1?"s":""}`:""}`);
+    if(!lic&&o.versions>0) d.push(`Versions supplémentaires : ${o.versions}`);
+  } else d.push(`Durée et étendue des droits : ${base}, selon contrat`);
+  if(!lic&&t[6]){
+    if(t[6]==="av") d.push(`Diffusion : ${({salles:"salles de cinéma puis télévision",tv:"télévision",svod:"plateforme de vidéo à la demande, monde",web:"internet uniquement"})[o.diff]}`);
+    d.push(`Production : ${({fr:"française",etr:"étrangère",buy:"étrangère, cession étendue des droits demandée (sous réserve des droits gérés par la SACEM)",coprod:"coproduction internationale"})[o.prod]}`);
+  }
+  if(lic) d.push(`Exclusivité : ${EXC_LBL[o.licExc].toLowerCase()}${o.licExc==="none"?" (le morceau reste disponible pour d'autres utilisations)":""}`);
+  else d.push(`Exclusivité : ${o.exclu?"longue, selon contrat":"pendant la durée d'exploitation"}`);
+  if(!lic&&o.edition) d.push("Édition : cédée au client");
+  d.push(`Enregistrement (master) : ${!lic&&o.master?"cédé au client":"reste la propriété du compositeur"}`);
+  if(!lic) d.push(`Allers-retours inclus : ${3+o.retours}`);
+  d.push("Droits de diffusion SACEM : réservés au compositeur");
+  return d;
+}
+function negLines(x){
+  if(!x.neg) return[];
+  const L=[];
+  if(x.o.negEng) L.push(`Tarif préférentiel accordé en contrepartie d'un engagement sur ${x.nb} projets.`);
+  if(x.o.negCred) L.push("Tarif préférentiel accordé en contrepartie d'un crédit visible et du droit pour le compositeur de présenter le projet dans son portfolio.");
+  return L;
+}
+function summary(x){
+  const L=droits(x); L.push(""); L.push(...negLines(x)); if(x.neg) L.push("");
+  const ll=x.lic||(SERIES.includes(x.o.type)&&x.o.presta==="licence");
+  L.push(`${ll?"Prix de la licence":"Prime de commande"} : ${eur(x.price)} HT`);
+  schedule().forEach(([l,p])=>L.push(`${l} : ${p} % soit ${eur(x.price*p/100)}`));
+  L.push(`Paiement des factures ${$("delai").value}`);
+  return L;
+}
+
+/* ===== Devis ===== */
+const num=()=>`${S.seq.year}-${String(S.seq.n).padStart(3,"0")}`;
+function renderDevis(){
+  const x=last, today=new Date(), val=new Date(today.getTime()+A("validite")*864e5);
+  const fd=d=>d.toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"});
+  const liv=$("cLivraison").value?fd(new Date($("cLivraison").value+"T12:00")):"à convenir";
+  const sch=schedule();
+  $("paper").innerHTML=`
+  <div class="top">
+    <div><div class="name">${esc(ME("nom"))}</div><div class="role">${esc(ME("titre"))}</div>
+      <div class="muted" style="margin-top:8px;white-space:pre-line">${esc(ME("adresse"))}</div>
+      <div class="muted">${ME("siret")?"SIRET "+esc(ME("siret"))+"<br>":""}${esc(ME("email"))}${ME("email")&&ME("site")?" · ":""}${esc(ME("site"))}</div></div>
+    <div style="text-align:right"><div style="font-size:20px;font-weight:600">Devis n° ${num()}</div>
+      <div class="muted">Date : ${fd(today)}</div><div class="muted">Valable jusqu'au ${fd(val)}</div></div>
+  </div>
+  <h4>Client</h4>
+  <div><strong>${esc($("cSociete").value)||"—"}</strong>${$("cContact").value?"<br>À l'attention de "+esc($("cContact").value):""}
+    <div class="muted" style="white-space:pre-line">${esc($("cAdresse").value)}</div></div>
+  <h4>Projet</h4><div>${esc($("cProjet").value)||esc(x.t[0])}</div>
+  <h4>Prestation et droits</h4>
+  <ul>${droits(x).map(l=>"<li>"+esc(l)+"</li>").join("")}</ul>
+  <h4>Prix</h4>
+  <table><thead><tr><th>Désignation</th><th class="r">Montant HT</th></tr></thead><tbody>
+    <tr><td>${x.lic||(SERIES.includes(x.o.type)&&x.o.presta==="licence")?"Licence de synchronisation selon les conditions ci-dessus":"Prime de commande : composition originale et cession des droits décrits ci-dessus"}</td><td class="r">${eur(x.price)}</td></tr>
+    <tr class="tot"><td>Total HT</td><td class="r">${eur(x.price)}</td></tr></tbody></table>
+  <p class="muted" style="margin:6px 0 0">${esc(ME("tva"))}${ME("regime")&&!x.lic?"<br>"+esc(ME("regime")):""}</p>
+  ${x.neg?`<p style="margin:10px 0 0">${negLines(x).map(esc).join("<br>")}</p>`:""}
+  <h4>Échéancier</h4>
+  <table><tbody>${sch.map(([l,p])=>`<tr><td>${esc(l)} (${p} %)</td><td class="r">${eur(x.price*p/100)}</td></tr>`).join("")}</tbody></table>
+  <p class="muted" style="margin:6px 0 0">Paiement des factures ${esc($("delai").value)}.</p>
+  <h4>Conditions</h4>
+  <ul>
+    <li>Livraison prévue : ${liv}.</li>
+    ${x.lic?"":`<li>${3+x.o.retours} allers-retours inclus ; toute modification supplémentaire fera l'objet d'un avenant.</li>`}
+    <li>Le compositeur reste l'auteur de l'œuvre. Les droits de diffusion sont gérés par la SACEM et réservés au compositeur ; le client transmet le plan de diffusion.</li>
+    <li>Mention au générique ou dans les crédits : « Musique originale : ${esc(ME("nom"))} ».</li>
+    <li>Les droits ne sont cédés qu'après paiement intégral. Un contrat précisera ces conditions.</li>
+  </ul>
+  <div class="sign"><div>Le compositeur<br><span class="muted">${esc(ME("nom"))}</span></div><div>Le client<br><span class="muted">Date, signature et mention « Bon pour accord »</span></div></div>`;
+}
+$("voirDevis").addEventListener("click",()=>{renderDevis();document.body.classList.add("show-devis");window.scrollTo(0,0);});
+$("retour").addEventListener("click",()=>document.body.classList.remove("show-devis"));
+$("imprimer").addEventListener("click",()=>{try{window.print();}catch(e){}});
+$("nouveauNum").addEventListener("click",()=>{S.seq.n++;save();renderDevis();});
+$("copier").addEventListener("click",()=>{
+  const txt=$("resume").textContent, ok=()=>{$("copied").hidden=false;setTimeout(()=>$("copied").hidden=true,1600);};
+  const fb=()=>{const r=document.createRange();r.selectNodeContents($("resume"));const s=getSelection();s.removeAllRanges();s.addRange(r);};
+  try{navigator.clipboard.writeText(txt).then(ok,fb);}catch(e){fb();}
+});
+
+buildSettings(); fillTypes(); calc();
+})();
+</script>
+</body>
+</html>
