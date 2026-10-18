@@ -368,6 +368,9 @@ body.has-bar footer{padding-bottom:90px}
 main .hero{min-height:calc(86vh - 89px);min-height:calc(86svh - 89px)}
 section#listen.wrap{padding-top:clamp(56px,7vw,104px)}
 @media (max-width:860px){main .hero{min-height:0;padding:44px 0 108px}}
+footer .fr2{display:inline-flex;gap:28px;flex-wrap:wrap;justify-content:center}
+footer .legal{color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)}
+footer .legal:hover{color:var(--ink)}
 </style>
 </head>
 <body>
@@ -480,7 +483,7 @@ section#listen.wrap{padding-top:clamp(56px,7vw,104px)}
 <audio id="au" preload="none"></audio>
 
 <footer>
-  <div class="wrap"><span>© <span id="y">2026</span> ILAN QUOIREZ</span><span data-i="role">INDEPENDENT COMPOSER</span></div>
+  <div class="wrap"><span>© <span id="y">2026</span> ILAN QUOIREZ</span><span class="fr2"><span data-i="role">INDEPENDENT COMPOSER</span><a href="mentions-legales.html" class="legal" data-i="legal">LEGAL NOTICE</a></span></div>
 </footer>
 
 <script>
@@ -532,7 +535,7 @@ const VOL={poprock:{n:'Altitude',v:'01',en:'Expansive guitars, live drums, build
 const VORD=['poprock','electronic','jazz','rap'];
 const COL={poprock:'var(--pop)',electronic:'var(--ele)',jazz:'var(--jaz)',rap:'var(--rap)'};
 const I18N={
- en:{nav_pic:'ON PICTURE',h_pic:'ON PICTURE',s_pic:'SHOWREEL &nbsp;·&nbsp; <b>03</b> SPEC SPOTS',lead_pic:'Three spots edited to my music, in <em>fashion, automotive and travel</em>: to hear how it plays against picture.',pk1:'FASHION &nbsp;·&nbsp; NIGHTLIFE',pk2:'AUTOMOTIVE',pk3:'TRAVEL &nbsp;·&nbsp; BRAND FILM',pm1:'Music: <em>Minuit</em> &nbsp;·&nbsp; Nocturne, Vol. 02',pm2:'Music: <em>Distance</em> &nbsp;·&nbsp; Nocturne, Vol. 02',pm3:'Music: <em>Ascension</em> &nbsp;·&nbsp; Altitude, Vol. 01',pic_note:'INDEPENDENT SPEC SPOTS, NOT AFFILIATED WITH THE BRANDS SHOWN. LICENSED FOOTAGE.',nav_listen:'LISTEN',nav_cat:'VOLUMES',nav_about:'ABOUT',nav_contact:'CONTACT',
+ en:{legal:'LEGAL NOTICE',nav_pic:'ON PICTURE',h_pic:'ON PICTURE',s_pic:'SHOWREEL &nbsp;·&nbsp; <b>03</b> SPEC SPOTS',lead_pic:'Three spots edited to my music, in <em>fashion, automotive and travel</em>: to hear how it plays against picture.',pk1:'FASHION &nbsp;·&nbsp; NIGHTLIFE',pk2:'AUTOMOTIVE',pk3:'TRAVEL &nbsp;·&nbsp; BRAND FILM',pm1:'Music: <em>Minuit</em> &nbsp;·&nbsp; Nocturne, Vol. 02',pm2:'Music: <em>Distance</em> &nbsp;·&nbsp; Nocturne, Vol. 02',pm3:'Music: <em>Ascension</em> &nbsp;·&nbsp; Altitude, Vol. 01',pic_note:'INDEPENDENT SPEC SPOTS, NOT AFFILIATED WITH THE BRANDS SHOWN. LICENSED FOOTAGE.',nav_listen:'LISTEN',nav_cat:'VOLUMES',nav_about:'ABOUT',nav_contact:'CONTACT',
   fields:'ADVERTISING &nbsp;·&nbsp; FILM &amp; TV<span class="fsep"> &nbsp;·&nbsp; </span><span class="mbr"></span>GAMES &nbsp;·&nbsp; EVENTS',cta_listen:'LISTEN TO THE SELECTION',cta_contact:'CONTACT',
   h_sel:'SELECTED TRACKS',s_sel:'<b>09</b> TRACKS',
   lead_sel:'Nine tracks written for picture. Each can be tailored to the length and pace of your edit.',
@@ -540,13 +543,13 @@ const I18N={
   h_reels:'GENRE REELS',s_reels:'<b>04</b> VIDEOS &nbsp;·&nbsp; <b>37</b> EXCERPTS',
   h_about:'ABOUT',s_about:'INDEPENDENT COMPOSER &nbsp;·&nbsp; FRANCE',
   about_big:'Original music for advertising, film, series, video games and events, <em>written to serve the picture</em>, from short spots to long formats.',
-  f1t:'RIGHTS',f1:'All masters and compositions are <strong>wholly mine</strong>: no label, no co-writer. <strong>One point of contact</strong> for every right.',
-  f2t:'FORMATS',f2:'An <strong>original score</strong> written to your edit, or a <strong>licence</strong> for an existing track, adapted to your format.',
-  f3t:'SACEM',f3:'Member since 2019.',
-  f4t:'INTERNATIONAL',f4:'Working remotely with productions in France and abroad.',f5t:'CREATION',f5:'<strong>100% human composition.</strong> No artificial intelligence in the writing or the production.',
+  f1t:'RIGHTS',f1:'I own all masters and compositions <strong>outright</strong>: no label, no co-writer. <strong>A single point of contact</strong> for both sync and master rights, for fast, simple clearance.',
+  f2t:'FORMATS',f2:'An <strong>original score</strong> written to your edit, or a <strong>licence</strong> for an existing track, cut to the length of your format.',
+  f3t:'SACEM',f3:'Member of SACEM, the French authors’ society, since 2019. Broadcast royalties are handled by SACEM.',
+  f4t:'INTERNATIONAL',f4:'Available remotely for productions in France and abroad.',f5t:'CREATION',f5:'<strong>100% human composition.</strong> No artificial intelligence in the writing or the production.',
   s_contact:'COMMISSIONS &nbsp;·&nbsp; LICENSING',cline:'Commissions and licensing: send me your brief, timeline and budget. I reply personally, in French or English.',
-  kicker:'<b>COMPOSER</b> &nbsp;·&nbsp; ORIGINAL MUSIC',navrole:'COMPOSER',role:'INDEPENDENT COMPOSER',tracks:'TRACKS',h_vol:'THE VOLUMES',s_vol:'<b>04</b> VOLUMES &nbsp;·&nbsp; <b>37</b> ORIGINAL TRACKS',moodlabel:'MOOD',vfilm:'VOLUME FILM',moodres:'MOOD',across:'across the four volumes',ntracks:'TRACKS',all:'ALL',inst:'INSTRUMENTAL',voc:'WITH VOCALS'},
- fr:{nav_pic:'À L’IMAGE',h_pic:'À L’IMAGE',s_pic:'SHOWREEL &nbsp;·&nbsp; <b>03</b> SPOTS',lead_pic:'Trois spots montés sur ma musique, entre <em>mode, automobile et voyage</em>, pour l’entendre à l’image.',pk1:'MODE &nbsp;·&nbsp; NUIT',pk2:'AUTOMOBILE',pk3:'VOYAGE &nbsp;·&nbsp; FILM DE MARQUE',pm1:'Musique : <em>Minuit</em> &nbsp;·&nbsp; Nocturne, vol. 02',pm2:'Musique : <em>Distance</em> &nbsp;·&nbsp; Nocturne, vol. 02',pm3:'Musique : <em>Ascension</em> &nbsp;·&nbsp; Altitude, vol. 01',pic_note:'SPOTS DE DÉMONSTRATION RÉALISÉS EN INDÉPENDANT, SANS LIEN AVEC LES MARQUES À L’ÉCRAN. IMAGES SOUS LICENCE.',nav_listen:'ÉCOUTER',nav_cat:'VOLUMES',nav_about:'À PROPOS',nav_contact:'CONTACT',
+  kicker:'<b>COMPOSER</b> &nbsp;·&nbsp; ORIGINAL MUSIC',navrole:'COMPOSER',role:'INDEPENDENT COMPOSER',tracks:'TRACKS',h_vol:'THE VOLUMES',s_vol:'<b>04</b> VOLUMES &nbsp;·&nbsp; <b>37</b> ORIGINAL TRACKS',moodlabel:'MOOD',vfilm:'THE FULL VOLUME ON VIDEO',moodres:'MOOD',across:'across the four volumes',ntracks:'TRACKS',all:'ALL',inst:'INSTRUMENTAL',voc:'WITH VOCALS'},
+ fr:{legal:'MENTIONS LÉGALES',nav_pic:'À L’IMAGE',h_pic:'À L’IMAGE',s_pic:'SHOWREEL &nbsp;·&nbsp; <b>03</b> SPOTS',lead_pic:'Trois spots montés sur ma musique, entre <em>mode, automobile et voyage</em>, pour l’entendre à l’image.',pk1:'MODE &nbsp;·&nbsp; NUIT',pk2:'AUTOMOBILE',pk3:'VOYAGE &nbsp;·&nbsp; FILM DE MARQUE',pm1:'Musique : <em>Minuit</em> &nbsp;·&nbsp; Nocturne, vol. 02',pm2:'Musique : <em>Distance</em> &nbsp;·&nbsp; Nocturne, vol. 02',pm3:'Musique : <em>Ascension</em> &nbsp;·&nbsp; Altitude, vol. 01',pic_note:'SPOTS DE DÉMONSTRATION RÉALISÉS EN INDÉPENDANT, SANS LIEN AVEC LES MARQUES À L’ÉCRAN. IMAGES SOUS LICENCE.',nav_listen:'ÉCOUTER',nav_cat:'VOLUMES',nav_about:'À PROPOS',nav_contact:'CONTACT',
   fields:'PUBLICITÉ &nbsp;·&nbsp; FILMS &amp; SÉRIES<span class="fsep"> &nbsp;·&nbsp; </span><span class="mbr"></span>JEU VIDÉO &nbsp;·&nbsp; ÉVÉNEMENTIEL',cta_listen:'ÉCOUTER LA SÉLECTION',cta_contact:'CONTACT',
   h_sel:'SÉLECTION',s_sel:'<b>09</b> TITRES',
   lead_sel:'Neuf titres pensés pour l’image. Chacun peut être ajusté à la durée et au rythme de votre montage.',
@@ -554,12 +557,12 @@ const I18N={
   h_reels:'VIDÉOS PAR GENRE',s_reels:'<b>04</b> VIDÉOS &nbsp;·&nbsp; <b>37</b> EXTRAITS',
   h_about:'À PROPOS',s_about:'COMPOSITEUR INDÉPENDANT &nbsp;·&nbsp; FRANCE',
   about_big:'Des musiques originales pour la publicité, le cinéma, les séries, le jeu vidéo et l’événementiel, <em>écrites pour servir l’image</em>, du spot court au format long.',
-  f1t:'DROITS',f1:'Masters et compositions m’appartiennent <strong>en totalité</strong> : aucun label, aucun coauteur. <strong>Un seul interlocuteur</strong> pour l’ensemble des droits.',
-  f2t:'FORMULES',f2:'Une <strong>composition originale</strong> écrite sur votre montage, ou la <strong>licence</strong> d’un titre existant, adapté à votre format.',
-  f3t:'SACEM',f3:'Membre depuis 2019.',
-  f4t:'INTERNATIONAL',f4:'Collaboration à distance avec des productions en France et à l’international.',f5t:'CRÉATION',f5:'<strong>Composition 100 % humaine.</strong> Aucune intelligence artificielle dans l’écriture ni la production.',
+  f1t:'DROITS',f1:'Masters et compositions m’appartiennent <strong>intégralement</strong>, sans label ni coauteur. <strong>Un seul interlocuteur</strong> pour la synchronisation et l’enregistrement : des autorisations simples et rapides.',
+  f2t:'FORMULES',f2:'Une <strong>composition originale</strong> écrite sur votre montage, ou la <strong>licence</strong> d’un titre existant, ajusté à la durée de votre format.',
+  f3t:'SACEM',f3:'Membre depuis 2019. Les droits de diffusion sont gérés par la SACEM.',
+  f4t:'INTERNATIONAL',f4:'Disponible à distance pour des productions en France et à l’international.',f5t:'CRÉATION',f5:'<strong>Composition 100 % humaine.</strong> Aucune intelligence artificielle dans l’écriture ni la production.',
   s_contact:'COMMANDES &nbsp;·&nbsp; LICENCES',cline:'Commandes et licences : adressez-moi votre brief, votre calendrier et votre budget. Je vous réponds personnellement, en français ou en anglais.',
-  kicker:'<b>COMPOSITEUR</b> &nbsp;·&nbsp; MUSIQUE ORIGINALE',navrole:'COMPOSITEUR',role:'COMPOSITEUR INDÉPENDANT',tracks:'TITRES',h_vol:'LES VOLUMES',s_vol:'<b>04</b> VOLUMES &nbsp;·&nbsp; <b>37</b> TITRES ORIGINAUX',moodlabel:'AMBIANCE',vfilm:'FILM DU VOLUME',moodres:'AMBIANCE',across:'dans les quatre volumes',ntracks:'TITRES',all:'TOUS',inst:'INSTRUMENTAL',voc:'AVEC VOIX'}
+  kicker:'<b>COMPOSITEUR</b> &nbsp;·&nbsp; MUSIQUE ORIGINALE',navrole:'COMPOSITEUR',role:'COMPOSITEUR INDÉPENDANT',tracks:'TITRES',h_vol:'LES VOLUMES',s_vol:'<b>04</b> VOLUMES &nbsp;·&nbsp; <b>37</b> TITRES ORIGINAUX',moodlabel:'AMBIANCE',vfilm:'LE VOLUME COMPLET EN VIDÉO',moodres:'AMBIANCE',across:'dans les quatre volumes',ntracks:'TITRES',all:'TOUS',inst:'INSTRUMENTAL',voc:'AVEC VOIX'}
 };
 let LANG='en';
 try{const s=localStorage.getItem('iq-lang'); LANG=s||((navigator.language||'').toLowerCase().startsWith('fr')?'fr':'en');}catch(e){LANG=(navigator.language||'').toLowerCase().startsWith('fr')?'fr':'en';}
