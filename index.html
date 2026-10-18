@@ -355,12 +355,15 @@ body.has-bar footer{padding-bottom:90px}
 .spot .meta2 .m{font-size:13.5px;line-height:1.45;color:var(--mute)}
 .spot .meta2 .m em{font-family:"Q Pagella",Georgia,serif;font-style:italic;color:var(--ink);font-size:1.08em}
 @media (max-width:860px){
-  .spots{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin-right:calc(-1 * var(--pad));padding-right:var(--pad);scrollbar-width:none;-webkit-overflow-scrolling:touch}
-  .spots::-webkit-scrollbar{display:none}
-  .spot{flex:0 0 84%;scroll-snap-align:start}
+  .spots{grid-template-columns:minmax(0,1fr);gap:30px;margin-top:22px}
+  .spot .meta2{padding-top:12px;gap:5px}
   .player .cap span{font-size:10px;letter-spacing:.2em}
   .player .cap span .rl{display:none}
 }
+/* nav: name only (the hero already says COMPOSER); full menu only where it fits */
+.nav .who i,.nav .who span{display:none}
+@media (max-width:1100px){.nav .hide-m{display:none}}
+@media (max-width:400px){.nav{letter-spacing:.2em}.nav ul{gap:14px}}
 /* hero rhythm: bring the selection closer */
 main .hero{min-height:calc(86vh - 89px);min-height:calc(86svh - 89px)}
 section#listen.wrap{padding-top:clamp(56px,7vw,104px)}
@@ -400,7 +403,7 @@ section#listen.wrap{padding-top:clamp(56px,7vw,104px)}
     <p class="lead reveal" data-i="lead_pic">Three spots edited to my music, in <em>fashion, automotive and travel</em>: to hear how it plays against picture.</p>
     <div class="feat reveal">
       <div class="player" data-src="media/showreel.mp4" role="button" tabindex="0" aria-label="Play the showreel">
-        <img src="media/showreel.jpg" alt="Showreel: Minuit, Distance, Ascension" loading="lazy" decoding="async">
+        <img src="media/showreel.jpg" alt="Showreel: Minuit, Distance, Ascension" decoding="async">
         <div class="ov"><span class="pl"><svg viewBox="0 0 24 24"><path d="M7 4.5l13 7.5-13 7.5z"/></svg></span></div>
         <div class="cap"><b>Showreel</b><span><span class="rl">MINUIT &nbsp;·&nbsp; DISTANCE &nbsp;·&nbsp; ASCENSION &nbsp;&nbsp; </span>1:02</span></div>
       </div>
@@ -408,7 +411,7 @@ section#listen.wrap{padding-top:clamp(56px,7vw,104px)}
     <div class="spots">
       <article class="spot reveal" style="--c:var(--ele)">
         <div class="player" data-src="media/minuit.mp4" role="button" tabindex="0" aria-label="Play Minuit">
-          <img src="media/minuit.jpg" alt="Minuit, spot" loading="lazy" decoding="async">
+          <img src="media/minuit.jpg" alt="Minuit, spot" decoding="async">
           <div class="ov"><span class="pl"><svg viewBox="0 0 24 24"><path d="M7 4.5l13 7.5-13 7.5z"/></svg></span></div>
         </div>
         <div class="meta2"><div class="t"><b>Minuit</b><span class="d">0:18</span></div>
@@ -417,7 +420,7 @@ section#listen.wrap{padding-top:clamp(56px,7vw,104px)}
       </article>
       <article class="spot reveal" style="--c:var(--ele);--d:.08s">
         <div class="player" data-src="media/distance.mp4" role="button" tabindex="0" aria-label="Play Distance">
-          <img src="media/distance.jpg" alt="Distance, spot" loading="lazy" decoding="async">
+          <img src="media/distance.jpg" alt="Distance, spot" decoding="async">
           <div class="ov"><span class="pl"><svg viewBox="0 0 24 24"><path d="M7 4.5l13 7.5-13 7.5z"/></svg></span></div>
         </div>
         <div class="meta2"><div class="t"><b>Distance</b><span class="d">0:23</span></div>
@@ -426,7 +429,7 @@ section#listen.wrap{padding-top:clamp(56px,7vw,104px)}
       </article>
       <article class="spot reveal" style="--c:var(--pop);--d:.16s">
         <div class="player" data-src="media/ascension.mp4" role="button" tabindex="0" aria-label="Play Ascension">
-          <img src="media/ascension.jpg" alt="Ascension, spot" loading="lazy" decoding="async">
+          <img src="media/ascension.jpg" alt="Ascension, spot" decoding="async">
           <div class="ov"><span class="pl"><svg viewBox="0 0 24 24"><path d="M7 4.5l13 7.5-13 7.5z"/></svg></span></div>
         </div>
         <div class="meta2"><div class="t"><b>Ascension</b><span class="d">0:25</span></div>
