@@ -330,7 +330,7 @@ body.has-bar footer{padding-bottom:90px}
 .pic-lead{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px 32px}
 .pic-note{font-size:11px;letter-spacing:.2em;color:var(--dim);font-weight:500;margin-top:clamp(26px,3vw,36px)}
 .player{position:relative;aspect-ratio:16/9;background:#000;border:1px solid var(--rule);overflow:hidden;cursor:pointer;isolation:isolate}
-.player img{position:absolute;left:0;width:100%;top:12.78%;height:74.44%;object-fit:cover;transition:transform 1.6s cubic-bezier(.2,.7,.2,1),opacity .6s}
+.player img{position:absolute;left:0;width:100%;top:0;height:100%;object-fit:cover;transition:transform 1.6s cubic-bezier(.2,.7,.2,1),opacity .6s}
 .player:hover img{transform:scale(1.025)}
 .player video{position:absolute;inset:0;width:100%;height:100%;background:#000}
 .player .ov{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.55));z-index:1}
@@ -354,7 +354,17 @@ body.has-bar footer{padding-bottom:90px}
 .spot .meta2 .k i{width:7px;height:7px;border-radius:50%;background:var(--c);flex:0 0 7px}
 .spot .meta2 .m{font-size:13.5px;line-height:1.45;color:var(--mute)}
 .spot .meta2 .m em{font-family:"Q Pagella",Georgia,serif;font-style:italic;color:var(--ink);font-size:1.08em}
-@media (max-width:860px){.spots{grid-template-columns:minmax(0,1fr)}.player .cap span{display:none}}
+@media (max-width:860px){
+  .spots{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin-right:calc(-1 * var(--pad));padding-right:var(--pad);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .spots::-webkit-scrollbar{display:none}
+  .spot{flex:0 0 84%;scroll-snap-align:start}
+  .player .cap span{font-size:10px;letter-spacing:.2em}
+  .player .cap span .rl{display:none}
+}
+/* hero rhythm: bring the selection closer */
+main .hero{min-height:calc(86vh - 89px);min-height:calc(86svh - 89px)}
+section#listen.wrap{padding-top:clamp(56px,7vw,104px)}
+@media (max-width:860px){main .hero{min-height:0;padding:44px 0 108px}}
 </style>
 </head>
 <body>
@@ -387,12 +397,12 @@ body.has-bar footer{padding-bottom:90px}
 
   <section id="picture" class="wrap">
     <div class="shead reveal"><h2 data-i="h_pic">ON PICTURE</h2><span data-i="s_pic">SHOWREEL &nbsp;·&nbsp; <b>03</b> SPEC SPOTS</span></div>
-    <p class="lead reveal" data-i="lead_pic">Three spots cut to my music: <em>fashion, automotive, travel</em>. Every cut lands on the music.</p>
+    <p class="lead reveal" data-i="lead_pic">Three spots edited to my music, in <em>fashion, automotive and travel</em>: to hear how it plays against picture.</p>
     <div class="feat reveal">
       <div class="player" data-src="media/showreel.mp4" role="button" tabindex="0" aria-label="Play the showreel">
         <img src="media/showreel.jpg" alt="Showreel: Minuit, Distance, Ascension" loading="lazy" decoding="async">
         <div class="ov"><span class="pl"><svg viewBox="0 0 24 24"><path d="M7 4.5l13 7.5-13 7.5z"/></svg></span></div>
-        <div class="cap"><b>Showreel</b><span>MINUIT &nbsp;·&nbsp; DISTANCE &nbsp;·&nbsp; ASCENSION &nbsp;&nbsp; 1:02</span></div>
+        <div class="cap"><b>Showreel</b><span><span class="rl">MINUIT &nbsp;·&nbsp; DISTANCE &nbsp;·&nbsp; ASCENSION &nbsp;&nbsp; </span>1:02</span></div>
       </div>
     </div>
     <div class="spots">
@@ -403,7 +413,7 @@ body.has-bar footer{padding-bottom:90px}
         </div>
         <div class="meta2"><div class="t"><b>Minuit</b><span class="d">0:18</span></div>
           <span class="k"><i></i><span data-i="pk1">FASHION &nbsp;·&nbsp; NIGHTLIFE</span></span>
-          <span class="m" data-i="pm1">Track: <em>Minuit</em>, Vol. 02 Electronic</span></div>
+          <span class="m" data-i="pm1">Music: <em>Minuit</em> &nbsp;·&nbsp; Nocturne, Vol. 02</span></div>
       </article>
       <article class="spot reveal" style="--c:var(--ele);--d:.08s">
         <div class="player" data-src="media/distance.mp4" role="button" tabindex="0" aria-label="Play Distance">
@@ -412,7 +422,7 @@ body.has-bar footer{padding-bottom:90px}
         </div>
         <div class="meta2"><div class="t"><b>Distance</b><span class="d">0:23</span></div>
           <span class="k"><i></i><span data-i="pk2">AUTOMOTIVE</span></span>
-          <span class="m" data-i="pm2">Track: <em>Distance</em>, Vol. 02 Electronic</span></div>
+          <span class="m" data-i="pm2">Music: <em>Distance</em> &nbsp;·&nbsp; Nocturne, Vol. 02</span></div>
       </article>
       <article class="spot reveal" style="--c:var(--pop);--d:.16s">
         <div class="player" data-src="media/ascension.mp4" role="button" tabindex="0" aria-label="Play Ascension">
@@ -421,10 +431,10 @@ body.has-bar footer{padding-bottom:90px}
         </div>
         <div class="meta2"><div class="t"><b>Ascension</b><span class="d">0:25</span></div>
           <span class="k"><i></i><span data-i="pk3">TRAVEL &nbsp;·&nbsp; BRAND FILM</span></span>
-          <span class="m" data-i="pm3">Track: <em>Ascension</em>, Vol. 01 Pop Rock</span></div>
+          <span class="m" data-i="pm3">Music: <em>Ascension</em> &nbsp;·&nbsp; Altitude, Vol. 01</span></div>
       </article>
     </div>
-    <p class="pic-note reveal" data-i="pic_note">SPEC WORK, NOT COMMISSIONED BY THE BRANDS SHOWN. LICENSED STOCK FOOTAGE, EDITED TO MY MUSIC.</p>
+    <p class="pic-note reveal" data-i="pic_note">INDEPENDENT SPEC SPOTS, NOT AFFILIATED WITH THE BRANDS SHOWN. LICENSED FOOTAGE.</p>
   </section>
 
   <section id="volumes" class="wrap">
@@ -519,7 +529,7 @@ const VOL={poprock:{n:'Altitude',v:'01',en:'Expansive guitars, live drums, build
 const VORD=['poprock','electronic','jazz','rap'];
 const COL={poprock:'var(--pop)',electronic:'var(--ele)',jazz:'var(--jaz)',rap:'var(--rap)'};
 const I18N={
- en:{nav_pic:'ON PICTURE',h_pic:'ON PICTURE',s_pic:'SHOWREEL &nbsp;·&nbsp; <b>03</b> SPEC SPOTS',lead_pic:'Three spots cut to my music: <em>fashion, automotive, travel</em>. Every cut lands on the music.',pk1:'FASHION &nbsp;·&nbsp; NIGHTLIFE',pk2:'AUTOMOTIVE',pk3:'TRAVEL &nbsp;·&nbsp; BRAND FILM',pm1:'Track: <em>Minuit</em>, Vol. 02 Electronic',pm2:'Track: <em>Distance</em>, Vol. 02 Electronic',pm3:'Track: <em>Ascension</em>, Vol. 01 Pop Rock',pic_note:'SPEC WORK, NOT COMMISSIONED BY THE BRANDS SHOWN. LICENSED STOCK FOOTAGE, EDITED TO MY MUSIC.',nav_listen:'LISTEN',nav_cat:'VOLUMES',nav_about:'ABOUT',nav_contact:'CONTACT',
+ en:{nav_pic:'ON PICTURE',h_pic:'ON PICTURE',s_pic:'SHOWREEL &nbsp;·&nbsp; <b>03</b> SPEC SPOTS',lead_pic:'Three spots edited to my music, in <em>fashion, automotive and travel</em>: to hear how it plays against picture.',pk1:'FASHION &nbsp;·&nbsp; NIGHTLIFE',pk2:'AUTOMOTIVE',pk3:'TRAVEL &nbsp;·&nbsp; BRAND FILM',pm1:'Music: <em>Minuit</em> &nbsp;·&nbsp; Nocturne, Vol. 02',pm2:'Music: <em>Distance</em> &nbsp;·&nbsp; Nocturne, Vol. 02',pm3:'Music: <em>Ascension</em> &nbsp;·&nbsp; Altitude, Vol. 01',pic_note:'INDEPENDENT SPEC SPOTS, NOT AFFILIATED WITH THE BRANDS SHOWN. LICENSED FOOTAGE.',nav_listen:'LISTEN',nav_cat:'VOLUMES',nav_about:'ABOUT',nav_contact:'CONTACT',
   fields:'ADVERTISING &nbsp;·&nbsp; FILM &amp; TV<span class="fsep"> &nbsp;·&nbsp; </span><span class="mbr"></span>GAMES &nbsp;·&nbsp; EVENTS',cta_listen:'LISTEN TO THE SELECTION',cta_contact:'CONTACT',
   h_sel:'SELECTED TRACKS',s_sel:'<b>09</b> TRACKS',
   lead_sel:'Nine tracks written for picture. Each can be tailored to the length and pace of your edit.',
@@ -533,10 +543,10 @@ const I18N={
   f4t:'INTERNATIONAL',f4:'Working remotely with productions in France and abroad.',f5t:'CREATION',f5:'<strong>100% human composition.</strong> No artificial intelligence in the writing or the production.',
   s_contact:'COMMISSIONS &nbsp;·&nbsp; LICENSING',cline:'Commissions and licensing: send me your brief, timeline and budget. I reply personally, in French or English.',
   kicker:'<b>COMPOSER</b> &nbsp;·&nbsp; ORIGINAL MUSIC',navrole:'COMPOSER',role:'INDEPENDENT COMPOSER',tracks:'TRACKS',h_vol:'THE VOLUMES',s_vol:'<b>04</b> VOLUMES &nbsp;·&nbsp; <b>37</b> ORIGINAL TRACKS',moodlabel:'MOOD',vfilm:'VOLUME FILM',moodres:'MOOD',across:'across the four volumes',ntracks:'TRACKS',all:'ALL',inst:'INSTRUMENTAL',voc:'WITH VOCALS'},
- fr:{nav_pic:'À L’IMAGE',h_pic:'À L’IMAGE',s_pic:'SHOWREEL &nbsp;·&nbsp; <b>03</b> SPOTS DÉMO',lead_pic:'Trois spots montés sur ma musique : <em>mode, automobile, voyage</em>. Chaque coupe tombe sur la musique.',pk1:'MODE &nbsp;·&nbsp; NUIT',pk2:'AUTOMOBILE',pk3:'VOYAGE &nbsp;·&nbsp; FILM DE MARQUE',pm1:'Morceau : <em>Minuit</em>, Vol. 02 Électro',pm2:'Morceau : <em>Distance</em>, Vol. 02 Électro',pm3:'Morceau : <em>Ascension</em>, Vol. 01 Pop Rock',pic_note:'SPOTS DÉMO, NON COMMANDÉS PAR LES MARQUES VISIBLES. IMAGES DE BANQUES SOUS LICENCE, MONTÉES SUR MA MUSIQUE.',nav_listen:'ÉCOUTER',nav_cat:'VOLUMES',nav_about:'À PROPOS',nav_contact:'CONTACT',
+ fr:{nav_pic:'À L’IMAGE',h_pic:'À L’IMAGE',s_pic:'SHOWREEL &nbsp;·&nbsp; <b>03</b> SPOTS',lead_pic:'Trois spots montés sur ma musique, entre <em>mode, automobile et voyage</em>, pour l’entendre à l’image.',pk1:'MODE &nbsp;·&nbsp; NUIT',pk2:'AUTOMOBILE',pk3:'VOYAGE &nbsp;·&nbsp; FILM DE MARQUE',pm1:'Musique : <em>Minuit</em> &nbsp;·&nbsp; Nocturne, vol. 02',pm2:'Musique : <em>Distance</em> &nbsp;·&nbsp; Nocturne, vol. 02',pm3:'Musique : <em>Ascension</em> &nbsp;·&nbsp; Altitude, vol. 01',pic_note:'SPOTS DE DÉMONSTRATION RÉALISÉS EN INDÉPENDANT, SANS LIEN AVEC LES MARQUES À L’ÉCRAN. IMAGES SOUS LICENCE.',nav_listen:'ÉCOUTER',nav_cat:'VOLUMES',nav_about:'À PROPOS',nav_contact:'CONTACT',
   fields:'PUBLICITÉ &nbsp;·&nbsp; FILMS &amp; SÉRIES<span class="fsep"> &nbsp;·&nbsp; </span><span class="mbr"></span>JEU VIDÉO &nbsp;·&nbsp; ÉVÉNEMENTIEL',cta_listen:'ÉCOUTER LA SÉLECTION',cta_contact:'CONTACT',
   h_sel:'SÉLECTION',s_sel:'<b>09</b> TITRES',
-  lead_sel:'Neuf titres pensés pour l’image. Chacun s’adapte à la durée et au rythme de votre montage.',
+  lead_sel:'Neuf titres pensés pour l’image. Chacun peut être ajusté à la durée et au rythme de votre montage.',
   h_cat:'CATALOGUE COMPLET',s_cat:'<b>37</b> TITRES ORIGINAUX &nbsp;·&nbsp; 4 GENRES',empty:'Aucun titre ne correspond à ces filtres.',more:'AFFICHER TOUS LES TITRES',less:'AFFICHER MOINS',
   h_reels:'VIDÉOS PAR GENRE',s_reels:'<b>04</b> VIDÉOS &nbsp;·&nbsp; <b>37</b> EXTRAITS',
   h_about:'À PROPOS',s_about:'COMPOSITEUR INDÉPENDANT &nbsp;·&nbsp; FRANCE',
@@ -567,7 +577,7 @@ const selEl=document.getElementById('sel');
 function renderSel(){selEl.innerHTML=DATA.sel.map((s,i)=>row(byId[s.id],i,LANG==='fr'?s.fr:s.en,LANG==='fr'?s.dfr:s.den)).join('');}
 /* volumes */
 const catEl=document.getElementById('vpanel');
-let curVol='electronic', fM=null;
+let curVol='poprock', fM=null;
 function renderFilters(){
   document.getElementById('fm').innerHTML=DATA.moods.map(m=>`<button type="button" class="chip mood${fM===m?' on':''}" data-m="${m}">${LANG==='fr'?m:(DATA.en[m]||m)}</button>`).join('');
 }
