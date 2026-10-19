@@ -365,9 +365,35 @@ body.has-bar footer{padding-bottom:90px}
 @media (max-width:1100px){.nav .hide-m{display:none}}
 @media (max-width:400px){.nav{letter-spacing:.2em}.nav ul{gap:14px}}
 /* hero rhythm: bring the selection closer */
-main .hero{min-height:calc(86vh - 89px);min-height:calc(86svh - 89px)}
-section#listen.wrap{padding-top:clamp(56px,7vw,104px)}
-@media (max-width:860px){main .hero{min-height:0;padding:44px 0 108px}}
+main .hero .cue{display:none}
+
+/* ===== luxe pass ===== */
+main .hero .wave{opacity:.9}
+.wlab{display:grid;grid-template-columns:215fr 40fr 215fr 40fr 215fr 40fr 215fr;width:min(100%,980px);margin:16px auto 0}
+.wlab a{text-align:center;font-family:"Q Pagella",Georgia,serif;font-style:italic;font-size:clamp(13px,1.3vw,17px);letter-spacing:.02em;color:var(--c);opacity:.88;text-decoration:none!important;border:0;transition:opacity .3s}
+.wlab a:nth-child(2){grid-column:3}.wlab a:nth-child(3){grid-column:5}.wlab a:nth-child(4){grid-column:7}
+.wlab a:hover{opacity:1}
+@media (min-width:861px){main .hero .wlab{width:min(100%,980px,112svh)}}
+main .hero .cta{gap:clamp(30px,4vw,56px);align-items:center}
+main .hero .btn,main .hero .btn.primary{height:auto;padding:0 0 11px;border:0;border-bottom:1px solid rgba(236,231,222,.28);border-radius:0;background:none;color:var(--ink);font-size:11.5px;letter-spacing:.3em;gap:12px;transition:border-color .3s,color .3s}
+main .hero .btn.primary{border-bottom-color:var(--ink)}
+main .hero .btn:hover,main .hero .btn.primary:hover{background:none;border-bottom-color:var(--ink);color:#fff}
+main .hero .btn svg{width:9px;height:9px}
+@media (max-width:560px){main .hero .cta{flex-direction:column;gap:26px}}
+.row .tg{gap:0}
+.row .tg span,.tl .row .tg span{border:0;border-radius:0;padding:0;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+.tl .row .tg span.u{color:var(--mute)}
+.row .tg span+span::before{content:"·";margin:0 .7em;color:var(--dim)}
+.chip,.chip.mood{border:0;border-bottom:1px solid transparent;border-radius:0;padding:6px 1px;background:none;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase}
+.chip:hover{border-bottom-color:rgba(236,231,222,.3)}
+.chip.on{background:none;color:var(--ink);border-bottom-color:var(--ink)}
+.chip+.chip{margin-left:clamp(6px,1vw,14px)}
+@media (max-width:860px){#sel .row .ti small .us{display:none}}
+.player img{color:transparent;font-size:0}
+@media (min-width:861px){main .hero{min-height:0;padding:clamp(28px,6.5svh,96px) 0 clamp(24px,4.5svh,60px)}main .hero h1{font-size:clamp(44px,min(11vw,16svh),164px)}main .hero .wave{margin-top:clamp(26px,min(6vw,6svh),76px);width:min(100%,980px,112svh)}main .hero .cta{margin-top:clamp(22px,4svh,44px)}}
+section#reel.wrap{padding-top:clamp(26px,3.2vw,44px)}
+section#reel .feat{margin-top:0}
+@media (max-width:860px){main .hero{min-height:0;padding:44px 0 52px}main .hero .cue{display:none}section#reel.wrap{padding-top:24px}}
 footer .fr2{display:inline-flex;gap:28px;flex-wrap:wrap;justify-content:center}
 footer .legal{color:inherit;text-decoration:none;border-bottom:1px solid var(--rule)}
 footer .legal:hover{color:var(--ink)}
@@ -389,11 +415,22 @@ footer .legal:hover{color:var(--ink)}
       <p class="kicker intro" style="animation-delay:.05s" data-i="kicker"><b>COMPOSER</b> &nbsp;·&nbsp; ORIGINAL MUSIC</p>
       <h1 class="settle" aria-label="Ilan Quoirez"><span aria-hidden="true" class="h1w"><span style="margin-right:-0.020em">I</span><span style="margin-right:0.002em">L</span><span style="margin-right:-0.033em">A</span><span>N</span><span class="h1sp"> </span><span style="margin-right:-0.034em">Q</span><span style="margin-right:-0.033em">U</span><span style="margin-right:-0.035em">O</span><span style="margin-right:-0.020em">I</span><span style="margin-right:-0.036em">R</span><span style="margin-right:-0.015em">E</span><span>Z</span></span></h1>
       <p class="fields intro" style="animation-delay:1.1s" data-i="fields">ADVERTISING &nbsp;·&nbsp; FILM &amp; TV &nbsp;·&nbsp; GAMES &nbsp;·&nbsp; EVENTS</p>
-      <div class="cta intro" style="animation-delay:1.5s"><a href="#listen" class="btn primary" id="heroPlay"><svg viewBox="0 0 24 24"><path d="M7 4.5l13 7.5-13 7.5z"/></svg><span data-i="cta_listen">LISTEN TO THE SELECTION</span></a><a href="#contact" class="btn" data-i="cta_contact">CONTACT</a></div>
+      <div class="cta intro" style="animation-delay:1.5s"><a href="#listen" class="btn primary" id="heroPlay"><svg viewBox="0 0 24 24"><path d="M7 4.5l13 7.5-13 7.5z"/></svg><span data-i="cta_listen">LISTEN TO THE SELECTION</span></a><a href="#reel" class="btn" data-i="cta_reel">WATCH THE SHOWREEL</a></div>
       <svg class="wave" id="wave" viewBox="0 0 980 60" aria-hidden="true"></svg>
+      <div class="wlab intro" style="animation-delay:1.9s"><a href="#volumes" data-g="poprock" style="--c:var(--pop)">Altitude</a><a href="#volumes" data-g="electronic" style="--c:var(--ele)">Nocturne</a><a href="#volumes" data-g="jazz" style="--c:var(--jaz)">Velours</a><a href="#volumes" data-g="rap" style="--c:var(--rap)">Béton</a></div>
       <a href="#listen" class="cue intro" style="animation-delay:2.2s" aria-label="Scroll to works"><i></i></a>
     </div>
   </div>
+
+  <section id="reel" class="wrap">
+    <div class="feat">
+      <div class="player" data-src="media/showreel.mp4" role="button" tabindex="0" aria-label="Play the showreel">
+        <img src="media/showreel.jpg" alt="Showreel: Minuit, Distance, Ascension" decoding="async">
+        <div class="ov"><span class="pl"><svg viewBox="0 0 24 24"><path d="M7 4.5l13 7.5-13 7.5z"/></svg></span></div>
+        <div class="cap"><b>Showreel</b><span><span class="rl">MINUIT &nbsp;·&nbsp; DISTANCE &nbsp;·&nbsp; ASCENSION &nbsp;&nbsp; </span>1:02</span></div>
+      </div>
+    </div>
+  </section>
 
   <section id="listen" class="wrap">
     <div class="shead reveal"><h2 data-i="h_sel">SELECTED TRACKS</h2><span data-i="s_sel"><b>09</b> TRACKS</span></div>
@@ -402,15 +439,8 @@ footer .legal:hover{color:var(--ink)}
   </section>
 
   <section id="picture" class="wrap">
-    <div class="shead reveal"><h2 data-i="h_pic">ON PICTURE</h2><span data-i="s_pic">SHOWREEL &nbsp;·&nbsp; <b>03</b> SPEC SPOTS</span></div>
+    <div class="shead reveal"><h2 data-i="h_pic">ON PICTURE</h2><span data-i="s_pic"><b>03</b> SPEC SPOTS</span></div>
     <p class="lead reveal" data-i="lead_pic">Three spots edited to my music, in <em>fashion, automotive and travel</em>: to hear how it plays against picture.</p>
-    <div class="feat reveal">
-      <div class="player" data-src="media/showreel.mp4" role="button" tabindex="0" aria-label="Play the showreel">
-        <img src="media/showreel.jpg" alt="Showreel: Minuit, Distance, Ascension" decoding="async">
-        <div class="ov"><span class="pl"><svg viewBox="0 0 24 24"><path d="M7 4.5l13 7.5-13 7.5z"/></svg></span></div>
-        <div class="cap"><b>Showreel</b><span><span class="rl">MINUIT &nbsp;·&nbsp; DISTANCE &nbsp;·&nbsp; ASCENSION &nbsp;&nbsp; </span>1:02</span></div>
-      </div>
-    </div>
     <div class="spots">
       <article class="spot reveal" style="--c:var(--ele)">
         <div class="player" data-src="media/minuit.mp4" role="button" tabindex="0" aria-label="Play Minuit">
@@ -535,7 +565,7 @@ const VOL={poprock:{n:'Altitude',v:'01',en:'Expansive guitars, live drums, build
 const VORD=['poprock','electronic','jazz','rap'];
 const COL={poprock:'var(--pop)',electronic:'var(--ele)',jazz:'var(--jaz)',rap:'var(--rap)'};
 const I18N={
- en:{legal:'LEGAL NOTICE',nav_pic:'ON PICTURE',h_pic:'ON PICTURE',s_pic:'SHOWREEL &nbsp;·&nbsp; <b>03</b> SPEC SPOTS',lead_pic:'Three spots edited to my music, in <em>fashion, automotive and travel</em>: to hear how it plays against picture.',pk1:'FASHION &nbsp;·&nbsp; NIGHTLIFE',pk2:'AUTOMOTIVE',pk3:'TRAVEL &nbsp;·&nbsp; BRAND FILM',pm1:'Music: <em>Minuit</em> &nbsp;·&nbsp; Nocturne, Vol. 02',pm2:'Music: <em>Distance</em> &nbsp;·&nbsp; Nocturne, Vol. 02',pm3:'Music: <em>Ascension</em> &nbsp;·&nbsp; Altitude, Vol. 01',pic_note:'INDEPENDENT SPEC SPOTS, NOT AFFILIATED WITH THE BRANDS SHOWN. LICENSED FOOTAGE.',nav_listen:'LISTEN',nav_cat:'VOLUMES',nav_about:'ABOUT',nav_contact:'CONTACT',
+ en:{cta_reel:'WATCH THE SHOWREEL',legal:'LEGAL NOTICE',nav_pic:'ON PICTURE',h_pic:'ON PICTURE',s_pic:'<b>03</b> SPEC SPOTS',lead_pic:'Three spots edited to my music, in <em>fashion, automotive and travel</em>: to hear how it plays against picture.',pk1:'FASHION &nbsp;·&nbsp; NIGHTLIFE',pk2:'AUTOMOTIVE',pk3:'TRAVEL &nbsp;·&nbsp; BRAND FILM',pm1:'Music: <em>Minuit</em> &nbsp;·&nbsp; Nocturne, Vol. 02',pm2:'Music: <em>Distance</em> &nbsp;·&nbsp; Nocturne, Vol. 02',pm3:'Music: <em>Ascension</em> &nbsp;·&nbsp; Altitude, Vol. 01',pic_note:'INDEPENDENT SPEC SPOTS, NOT AFFILIATED WITH THE BRANDS SHOWN. LICENSED FOOTAGE.',nav_listen:'LISTEN',nav_cat:'VOLUMES',nav_about:'ABOUT',nav_contact:'CONTACT',
   fields:'ADVERTISING &nbsp;·&nbsp; FILM &amp; TV<span class="fsep"> &nbsp;·&nbsp; </span><span class="mbr"></span>GAMES &nbsp;·&nbsp; EVENTS',cta_listen:'LISTEN TO THE SELECTION',cta_contact:'CONTACT',
   h_sel:'SELECTED TRACKS',s_sel:'<b>09</b> TRACKS',
   lead_sel:'Nine tracks written for picture. Each can be tailored to the length and pace of your edit.',
@@ -549,7 +579,7 @@ const I18N={
   f4t:'INTERNATIONAL',f4:'Available remotely for productions in France and abroad.',f5t:'CREATION',f5:'<strong>100% human composition.</strong> No artificial intelligence in the writing or the production.',
   s_contact:'COMMISSIONS &nbsp;·&nbsp; LICENSING',cline:'Commissions and licensing: send me your brief, timeline and budget. I reply personally, in French or English.',
   kicker:'<b>COMPOSER</b> &nbsp;·&nbsp; ORIGINAL MUSIC',navrole:'COMPOSER',role:'INDEPENDENT COMPOSER',tracks:'TRACKS',h_vol:'THE VOLUMES',s_vol:'<b>04</b> VOLUMES &nbsp;·&nbsp; <b>37</b> ORIGINAL TRACKS',moodlabel:'MOOD',vfilm:'THE FULL VOLUME ON VIDEO',moodres:'MOOD',across:'across the four volumes',ntracks:'TRACKS',all:'ALL',inst:'INSTRUMENTAL',voc:'WITH VOCALS'},
- fr:{legal:'MENTIONS LÉGALES',nav_pic:'À L’IMAGE',h_pic:'À L’IMAGE',s_pic:'SHOWREEL &nbsp;·&nbsp; <b>03</b> SPOTS',lead_pic:'Trois spots montés sur ma musique, entre <em>mode, automobile et voyage</em>, pour l’entendre à l’image.',pk1:'MODE &nbsp;·&nbsp; NUIT',pk2:'AUTOMOBILE',pk3:'VOYAGE &nbsp;·&nbsp; FILM DE MARQUE',pm1:'Musique : <em>Minuit</em> &nbsp;·&nbsp; Nocturne, vol. 02',pm2:'Musique : <em>Distance</em> &nbsp;·&nbsp; Nocturne, vol. 02',pm3:'Musique : <em>Ascension</em> &nbsp;·&nbsp; Altitude, vol. 01',pic_note:'SPOTS DE DÉMONSTRATION RÉALISÉS EN INDÉPENDANT, SANS LIEN AVEC LES MARQUES À L’ÉCRAN. IMAGES SOUS LICENCE.',nav_listen:'ÉCOUTER',nav_cat:'VOLUMES',nav_about:'À PROPOS',nav_contact:'CONTACT',
+ fr:{cta_reel:'VOIR LE SHOWREEL',legal:'MENTIONS LÉGALES',nav_pic:'À L’IMAGE',h_pic:'À L’IMAGE',s_pic:'<b>03</b> SPOTS',lead_pic:'Trois spots montés sur ma musique, entre <em>mode, automobile et voyage</em>, pour l’entendre à l’image.',pk1:'MODE &nbsp;·&nbsp; NUIT',pk2:'AUTOMOBILE',pk3:'VOYAGE &nbsp;·&nbsp; FILM DE MARQUE',pm1:'Musique : <em>Minuit</em> &nbsp;·&nbsp; Nocturne, vol. 02',pm2:'Musique : <em>Distance</em> &nbsp;·&nbsp; Nocturne, vol. 02',pm3:'Musique : <em>Ascension</em> &nbsp;·&nbsp; Altitude, vol. 01',pic_note:'SPOTS DE DÉMONSTRATION RÉALISÉS EN INDÉPENDANT, SANS LIEN AVEC LES MARQUES À L’ÉCRAN. IMAGES SOUS LICENCE.',nav_listen:'ÉCOUTER',nav_cat:'VOLUMES',nav_about:'À PROPOS',nav_contact:'CONTACT',
   fields:'PUBLICITÉ &nbsp;·&nbsp; FILMS &amp; SÉRIES<span class="fsep"> &nbsp;·&nbsp; </span><span class="mbr"></span>JEU VIDÉO &nbsp;·&nbsp; ÉVÉNEMENTIEL',cta_listen:'ÉCOUTER LA SÉLECTION',cta_contact:'CONTACT',
   h_sel:'SÉLECTION',s_sel:'<b>09</b> TITRES',
   lead_sel:'Neuf titres pensés pour l’image. Chacun peut être ajusté à la durée et au rythme de votre montage.',
@@ -673,7 +703,7 @@ setLang(LANG);
 /* ---------- v3: on picture players ---------- */
 (function(){
 const au=document.getElementById('au');
-function stopVideos(except){document.querySelectorAll('#picture video').forEach(v=>{if(v!==except&&!v.paused)v.pause();});}
+function stopVideos(except){document.querySelectorAll('main video').forEach(v=>{if(v!==except&&!v.paused)v.pause();});}
 function start(p){
   if(p.classList.contains('on')) return;
   const v=document.createElement('video');
@@ -682,12 +712,13 @@ function start(p){
   p.appendChild(v); p.classList.add('on'); p.removeAttribute('role'); p.removeAttribute('tabindex');
   v.play().catch(()=>{});
 }
-document.querySelectorAll('#picture .player').forEach(p=>{
+document.querySelectorAll('main .player').forEach(p=>{
   p.addEventListener('click',()=>start(p));
   p.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();start(p);}});
 });
 if(au) au.addEventListener('play',()=>stopVideos(null));
 })();
+document.querySelectorAll('.wlab a').forEach(a=>a.addEventListener('click',()=>{const t=document.querySelector('#vtabs [data-v="'+a.dataset.g+'"]'); if(t) t.click();}));
 </script>
 </body>
 </html>
